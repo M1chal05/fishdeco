@@ -54,9 +54,20 @@ function readDiscordConfig(env) {
   const clientId = env.DISCORD_CLIENT_ID;
   const clientSecret = env.DISCORD_CLIENT_SECRET;
   const redirectUri = env.DISCORD_REDIRECT_URI;
-  return { clientId, clientSecret, redirectUri, enabled: typeof clientId === 'string' && !!clientId.trim()
-    && typeof clientSecret === 'string' && !!clientSecret && typeof env.CLUB_PASSWORD === 'string'
-    && !!env.CLUB_PASSWORD && validRedirect(redirectUri) };
+  const configurationIssues = [];
+  for (const variable of ['DISCORD_CLIENT_ID', 'DISCORD_CLIENT_SECRET', 'CLUB_PASSWORD', 'DISCORD_REDIRECT_URI']) {
+    const value = env[variable];
+    if (value === undefined || value === null || value === '') {
+      configurationIssues.push({ variable, problem: 'missing' });
+    } else if (typeof value !== 'string') {
+      configurationIssues.push({ variable, problem: 'must_be_text' });
+    } else if (!value.trim()) {
+      configurationIssues.push({ variable, problem: 'empty' });
+    } else if (variable === 'DISCORD_REDIRECT_URI' && !validRedirect(value)) {
+      configurationIssues.push({ variable, problem: 'invalid_callback_url' });
+    }
+  }
+  return { clientId, clientSecret, redirectUri, enabled: configurationIssues.length === 0, configurationIssues };
 }
 function makeCatalog(catalog) {
   const collections = catalog.collections || [];
@@ -150,10 +161,12 @@ export function createWorker({ catalog = defaultCatalog, fetcher = globalThis.fe
   }
   async function discordConfig(user, env) {
     const cfg = readDiscordConfig(env);
-    if (!user) return { enabled: cfg.enabled, linked: false };
+    // Report only fixed variable names and validation codes, never configured values.
+    const status = { enabled: cfg.enabled, ...(!cfg.enabled ? { configurationIssues: cfg.configurationIssues } : {}) };
+    if (!user) return { ...status, linked: false };
     const row = await (await d1(env, 'SELECT username,display_name FROM discord_accounts WHERE user_id=?', user.id)).first();
-    return row ? { enabled: cfg.enabled, linked: true, username: row.username, displayName: row.display_name }
-      : { enabled: cfg.enabled, linked: false };
+    return row ? { ...status, linked: true, username: row.username, displayName: row.display_name }
+      : { ...status, linked: false };
   }
   async function startDiscord(request, env, body) {
     const cfg = readDiscordConfig(env);

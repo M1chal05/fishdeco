@@ -90,6 +90,27 @@ function fixture() {
   return { DB, env, worker, send, begin, finish, login, advance: (ms) => { time += ms; }, calls: () => externalCalls };
 }
 
+test('Cloudflare: disabled Discord reports exact configuration problems without exposing values', async () => {
+  const f = fixture();
+  try {
+    const check = async () => (await f.send(f.worker(), '/api/auth/discord/config')).json();
+    assert.deepEqual(await check(), { enabled: true, linked: false });
+    delete f.env.CLUB_PASSWORD;
+    delete f.env.DISCORD_CLIENT_SECRET;
+    f.env.DISCORD_REDIRECT_URI = 'club.example/api/auth/discord/callback';
+    const disabled = await check();
+    assert.equal(disabled.enabled, false);
+    assert.deepEqual(disabled.configurationIssues, [
+      { variable: 'DISCORD_CLIENT_SECRET', problem: 'missing' },
+      { variable: 'CLUB_PASSWORD', problem: 'missing' },
+      { variable: 'DISCORD_REDIRECT_URI', problem: 'invalid_callback_url' },
+    ]);
+    assert.ok(!JSON.stringify(disabled).includes('club.example'));
+    f.env.DISCORD_CLIENT_SECRET = { get: 'secret-store-binding' };
+    assert.deepEqual((await check()).configurationIssues[0], { variable: 'DISCORD_CLIENT_SECRET', problem: 'must_be_text' });
+  } finally { f.DB.sqlite.close(); }
+});
+
 test('Cloudflare: Discord survives isolates, stores only hashed session, expiry is 90 days', async () => {
   const f = fixture();
   try {
