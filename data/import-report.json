@@ -1569,7 +1569,7 @@
       "bytes": 7820
     }
   ],
-  "catalogHash": "sha256:dedf97f1075cace2cd84d046a64280000f23e359c5f1317d6957e572e58a857f",
+  "catalogHash": "sha256:ae85f0be630d848cc3196fd415f1f23d8f0e5f823f4b872b80acb567691b6eb9",
   "catalogPath": "data\\catalog.json",
   "assetsDir": "public\\assets\\decorations",
   "finishedAt": "2026-11-14T14:48:26.049Z"
