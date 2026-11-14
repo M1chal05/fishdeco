@@ -8,7 +8,21 @@ import { Miniflare, convertV4MiniflareOptions } from 'miniflare';
 
 test('Cloudflare workerd + real D1: catalogue, persistent auth, atomic revision and primary release', { timeout: 60000 }, async () => {
   const { outputFiles } = await build({ entryPoints: [fileURLToPath(new URL('../cloudflare/worker.mjs', import.meta.url))], bundle: true, format: 'esm', platform: 'browser', write: false });
+  const upstreamCalls = [];
   const mf = new Miniflare(convertV4MiniflareOptions({ modules: true, script: outputFiles[0].text, compatibilityDate: '2026-11-01',
+    outboundService: async (request) => {
+      upstreamCalls.push(request.url);
+      if (request.url === 'https://discord.com/api/oauth2/token') {
+        const form = new URLSearchParams(await request.text());
+        assert.equal(form.get('client_secret'), 'test-secret');
+        assert.equal(form.get('code'), 'runtime-test-code');
+        assert.ok(form.get('code_verifier'));
+        return Response.json({ access_token: 'runtime-test-token' });
+      }
+      assert.equal(request.url, 'https://discord.com/api/v10/users/@me');
+      assert.equal(request.headers.get('Authorization'), 'Bearer runtime-test-token');
+      return Response.json({ id: '222222222222222222', username: 'bob', global_name: 'Bob' });
+    },
     assets: { directory: fileURLToPath(new URL('../public/', import.meta.url)), binding: 'ASSETS', run_worker_first: ['/api/*'], routerConfig: { has_user_worker: true } },
     d1Databases: { DB: 'test-only-db' }, bindings: { CLUB_PASSWORD: 'test-invite', DISCORD_CLIENT_ID: '123456789',
       DISCORD_CLIENT_SECRET: 'test-secret', DISCORD_REDIRECT_URI: 'https://club.example/api/auth/discord/callback' } }));
@@ -63,6 +77,12 @@ test('Cloudflare workerd + real D1: catalogue, persistent auth, atomic revision 
     assert.deepEqual((await released.json()).primaryAssignments, []);
     const start = await request('/api/auth/discord/start', { method: 'POST', headers, body: JSON.stringify({ mode: 'login', clubPassword: 'test-invite' }) });
     assert.equal(start.status, 200, 'Web Crypto PKCE and D1 state work in workerd');
-    assert.match((await start.json()).url, /^https:\/\/discord\.com\/oauth2\/authorize\?/);
+    const authUrl = new URL((await start.json()).url);
+    assert.equal(authUrl.origin + authUrl.pathname, 'https://discord.com/oauth2/authorize');
+    const binding = start.headers.getSetCookie().find((cookie) => cookie.startsWith('discord_oauth=')).split(';')[0];
+    const callback = await request(`/api/auth/discord/callback?code=runtime-test-code&state=${authUrl.searchParams.get('state')}`, { headers: { Cookie: binding }, redirect: 'manual' });
+    assert.equal(callback.headers.get('Location'), '/?discord=linked');
+    assert.deepEqual(upstreamCalls, ['https://discord.com/api/oauth2/token', 'https://discord.com/api/v10/users/@me']);
+    assert.ok((await db.prepare('SELECT id FROM users WHERE name=?').bind('Bob').first()).id);
   } finally { await mf.dispose(); }
 });

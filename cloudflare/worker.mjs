@@ -226,7 +226,9 @@ export function createWorker({ catalog = defaultCatalog, fetcher = globalThis.fe
     try {
       const form = new URLSearchParams({ grant_type: 'authorization_code', code, redirect_uri: cfg.redirectUri,
         client_id: cfg.clientId, client_secret: cfg.clientSecret, code_verifier: record.verifier });
-      const tokenResponse = await fetcher(TOKEN_URL, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: form, redirect: 'error', signal: AbortSignal.timeout(10000) });
+      // Workers supports manual/follow only. Reject 3xx via !ok below rather
+      // than following a redirect with credentials or using unsupported error mode.
+      const tokenResponse = await fetcher(TOKEN_URL, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: form, redirect: 'manual', signal: AbortSignal.timeout(10000) });
       if (!tokenResponse.ok) {
         // Only allowlisted OAuth error identifiers may leave the server.
         // Never return provider descriptions, request bodies, codes, or tokens.
@@ -239,7 +241,7 @@ export function createWorker({ catalog = defaultCatalog, fetcher = globalThis.fe
       const tokenData = await tokenResponse.json();
       if (typeof tokenData.access_token !== 'string' || !tokenData.access_token || tokenData.access_token.length > 4096) return fail('token_exchange_failed');
       failureStage = 'profile_failed';
-      const profileResponse = await fetcher(PROFILE_URL, { headers: { Authorization: `Bearer ${tokenData.access_token}` }, redirect: 'error', signal: AbortSignal.timeout(10000) });
+      const profileResponse = await fetcher(PROFILE_URL, { headers: { Authorization: `Bearer ${tokenData.access_token}` }, redirect: 'manual', signal: AbortSignal.timeout(10000) });
       if (!profileResponse.ok) return fail('profile_failed');
       const profile = await profileResponse.json();
       if (typeof profile.id !== 'string' || !/^\d{5,30}$/.test(profile.id) || profile.bot === true
