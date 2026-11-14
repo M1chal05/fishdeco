@@ -15,7 +15,7 @@
     {
       "binding": "DB",
       "database_name": "fishdeco",
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "d2741070-4f78-4ea3-92bc-6475f90940de",
       "migrations_dir": "cloudflare/migrations"
     }
   ],
