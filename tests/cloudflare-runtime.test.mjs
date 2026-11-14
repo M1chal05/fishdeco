@@ -55,7 +55,7 @@ test('Cloudflare workerd + real D1: catalogue, persistent auth, atomic revision 
     assert.equal(first.status, 200);
     const tag = first.headers.get('ETag');
     const state = await first.json();
-    assert.equal(state.collections.length, 15);
+    assert.equal(state.collections.length, 17);
     assert.equal(state.collections.reduce((n, c) => n + c.items.length, 0), 231);
     const collection = state.collections[0];
     const put = (path, body) => request(path, { method: 'PUT', headers, body: JSON.stringify(body) });

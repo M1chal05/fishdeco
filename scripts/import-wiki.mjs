@@ -41,6 +41,15 @@ const MAX_IMAGE_BYTES = 2 * 1024 * 1024;
 const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const SOURCE_IMAGE_RE = /^\/decorations\/[A-Za-z0-9._-]+\.[a-z0-9]+$/;
 
+// Typové sběrací odznaky z wiki (assets/collections-*.js): Plants a Paintings.
+// Id položky v katalogu musí být jedinečné, proto se tyto položky vyčleňují
+// jen z kolekce "Other" – rostliny a obrazy z tematických sad zůstávají
+// ve svých sadách.
+const BADGE_COLLECTIONS = [
+  { id: 'plants', name: 'Plants', itemType: 'Plant', icon: '/decorations-set-badges/plant-set.webp' },
+  { id: 'paintings', name: 'Paintings', itemType: 'Painting', icon: '/decorations-set-badges/painting-set.webp' },
+];
+
 class ImportError extends Error {}
 
 function usage() {
@@ -388,6 +397,30 @@ function buildCatalog(items, meta, icons, names) {
       }),
     };
   });
+  // Odznaky: typové položky z "Other" se přesunou do samostatných kolekcí.
+  const otherIdx = collections.findIndex((c) => c.id === 'other');
+  if (otherIdx !== -1) {
+    const other = collections[otherIdx];
+    const buckets = BADGE_COLLECTIONS.map(() => []);
+    const rest = [];
+    for (const it of other.items) {
+      const bi = BADGE_COLLECTIONS.findIndex((b) => b.itemType === it.type);
+      (bi === -1 ? rest : buckets[bi]).push(it);
+    }
+    other.items = rest;
+    const badges = BADGE_COLLECTIONS
+      .map((b, i) => ({ b, items: buckets[i] }))
+      .filter(({ items: list }) => list.length > 0)
+      .map(({ b, items: list }) => ({
+        id: b.id,
+        name: b.name,
+        ...(names.collections[b.id] ? { nameCs: names.collections[b.id] } : {}),
+        ...(icons.has(b.name) ? { image: `/assets/decorations/${icons.get(b.name).slug}.webp` } : {}),
+        sourceUrl: `${WIKI_ORIGIN}${CATEGORY_PATH}`,
+        items: list,
+      }));
+    collections.splice(otherIdx + 1, 0, ...badges);
+  }
   return { meta, collections };
 }
 
@@ -503,6 +536,12 @@ async function main() {
     };
     const iconSource = await discoverSetIcons(mainJs, items);
     report.steps.setIconsPage = iconSource.pageUrl;
+    const otherItemTypes = new Set(
+      items.filter((it) => collectionIdFor(it.set) === 'other').map((it) => it.type)
+    );
+    iconSource.jobs.push(...BADGE_COLLECTIONS
+      .filter((b) => otherItemTypes.has(b.itemType))
+      .map((b) => ({ set: b.name, slug: `set-${b.id}`, sourceImage: b.icon })));
     const icons = new Map(iconSource.jobs.map((job) => [job.set, job]));
     const imageJobs = [...items, ...iconSource.jobs];
     if (new Set(imageJobs.map((job) => job.slug)).size !== imageJobs.length) fail('Kolize názvů obrázků sad a dekorací.');

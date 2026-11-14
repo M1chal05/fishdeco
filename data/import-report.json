@@ -3,7 +3,7 @@
   "generator": "scripts/import-wiki.mjs",
   "wikiOrigin": "https://www.fishaofunwiki.com",
   "categoryUrl": "https://www.fishaofunwiki.com/category/decorations",
-  "fetchedAt": "2026-11-14T14:48:20.513Z",
+  "fetchedAt": "2026-11-14T15:44:34.480Z",
   "steps": {
     "mainModule": "https://www.fishaofunwiki.com/assets/index-PCabpCXC.js",
     "decorationsChunk": "https://www.fishaofunwiki.com/assets/decorations-Bi4jdZSp.js",
@@ -1567,10 +1567,22 @@
       "file": "set-space-set.webp",
       "sourceUrl": "https://www.fishaofunwiki.com/decorations/space-table.webp",
       "bytes": 7820
+    },
+    {
+      "set": "Plants",
+      "file": "set-plants.webp",
+      "sourceUrl": "https://www.fishaofunwiki.com/decorations-set-badges/plant-set.webp",
+      "bytes": 5942
+    },
+    {
+      "set": "Paintings",
+      "file": "set-paintings.webp",
+      "sourceUrl": "https://www.fishaofunwiki.com/decorations-set-badges/painting-set.webp",
+      "bytes": 6126
     }
   ],
-  "catalogHash": "sha256:ae85f0be630d848cc3196fd415f1f23d8f0e5f823f4b872b80acb567691b6eb9",
+  "catalogHash": "sha256:586787dcda396f5a70356d4d0bae74bdffd6b53644c384b5c4bbb1faca1f5d1a",
   "catalogPath": "data\\catalog.json",
   "assetsDir": "public\\assets\\decorations",
-  "finishedAt": "2026-11-14T14:48:26.049Z"
+  "finishedAt": "2026-11-14T15:44:39.386Z"
 }
