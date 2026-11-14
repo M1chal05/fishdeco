@@ -1,0 +1,17 @@
+node_modules/
+.wrangler/
+.cloudflare-assets/
+.dev.vars
+.dev.vars.*
+.env
+*.log
+
+# Lokální databáze (catalog.json v data/ zůstává v gitu)
+data/*.sqlite
+data/*.sqlite-journal
+data/*.sqlite-wal
+data/*.sqlite-shm
+data/**/*.sqlite
+data/**/*.sqlite-journal
+data/**/*.sqlite-wal
+data/**/*.sqlite-shm

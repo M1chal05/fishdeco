@@ -1,0 +1,1576 @@
+{
+  "status": "ok",
+  "generator": "scripts/import-wiki.mjs",
+  "wikiOrigin": "https://www.fishaofunwiki.com",
+  "categoryUrl": "https://www.fishaofunwiki.com/category/decorations",
+  "fetchedAt": "2026-11-14T14:48:20.513Z",
+  "steps": {
+    "mainModule": "https://www.fishaofunwiki.com/assets/index-PCabpCXC.js",
+    "decorationsChunk": "https://www.fishaofunwiki.com/assets/decorations-Bi4jdZSp.js",
+    "setIconsPage": "https://www.fishaofunwiki.com/assets/DecorationsPage-DqpEQxaz.js"
+  },
+  "sourceHash": "sha256:b7a364458ebec9dd3d37af7f2c38385b38703630a35099f7927690f4c9ff71ec",
+  "unmappedFields": [],
+  "sets": [
+    {
+      "set": "Simple Set",
+      "count": 14
+    },
+    {
+      "set": "Princess Set",
+      "count": 12
+    },
+    {
+      "set": "Classic Set",
+      "count": 12
+    },
+    {
+      "set": "Design Set",
+      "count": 12
+    },
+    {
+      "set": "Gold Set",
+      "count": 13
+    },
+    {
+      "set": "Ice Set",
+      "count": 9
+    },
+    {
+      "set": "Christmas Set",
+      "count": 12
+    },
+    {
+      "set": "Spooky Set",
+      "count": 12
+    },
+    {
+      "set": "Pirate Set",
+      "count": 12
+    },
+    {
+      "set": "Other",
+      "count": 63
+    },
+    {
+      "set": "Balloon Set",
+      "count": 12
+    },
+    {
+      "set": "Candy Set",
+      "count": 12
+    },
+    {
+      "set": "Gorgeous Set",
+      "count": 12
+    },
+    {
+      "set": "Soccer Set",
+      "count": 12
+    },
+    {
+      "set": "Space Set",
+      "count": 12
+    }
+  ],
+  "itemCount": 231,
+  "czechNames": {
+    "collectionsMissing": [],
+    "itemsMissing": []
+  },
+  "previousCatalog": {
+    "itemCount": 231,
+    "addedSlugs": [],
+    "removedSlugs": []
+  },
+  "images": {
+    "expected": 231,
+    "downloaded": 231,
+    "failed": [],
+    "bytesTotal": 1129326,
+    "items": [
+      {
+        "slug": "simple-wall-1",
+        "file": "simple-wall-1.webp",
+        "sourceImage": "/decorations/simple-wall1.webp",
+        "bytes": 2648
+      },
+      {
+        "slug": "simple-wall-2",
+        "file": "simple-wall-2.webp",
+        "sourceImage": "/decorations/simple-wall2.webp",
+        "bytes": 6324
+      },
+      {
+        "slug": "simple-floor-1",
+        "file": "simple-floor-1.webp",
+        "sourceImage": "/decorations/simple-floor1.webp",
+        "bytes": 5122
+      },
+      {
+        "slug": "simple-floor-2",
+        "file": "simple-floor-2.webp",
+        "sourceImage": "/decorations/simple-floor2.webp",
+        "bytes": 4812
+      },
+      {
+        "slug": "simple-bed",
+        "file": "simple-bed.webp",
+        "sourceImage": "/decorations/simple-bed.webp",
+        "bytes": 4756
+      },
+      {
+        "slug": "simple-chair",
+        "file": "simple-chair.webp",
+        "sourceImage": "/decorations/simple-chair.webp",
+        "bytes": 3912
+      },
+      {
+        "slug": "simple-coffee-table",
+        "file": "simple-coffee-table.webp",
+        "sourceImage": "/decorations/simple-coffee-table.webp",
+        "bytes": 2950
+      },
+      {
+        "slug": "simple-lamp",
+        "file": "simple-lamp.webp",
+        "sourceImage": "/decorations/simple-lamp.webp",
+        "bytes": 5224
+      },
+      {
+        "slug": "simple-lounge-chair",
+        "file": "simple-lounge-chair.webp",
+        "sourceImage": "/decorations/simple-lounge-chair.webp",
+        "bytes": 4350
+      },
+      {
+        "slug": "simple-nightstand",
+        "file": "simple-nightstand.webp",
+        "sourceImage": "/decorations/simple-nightstand.webp",
+        "bytes": 3856
+      },
+      {
+        "slug": "simple-plant",
+        "file": "simple-plant.webp",
+        "sourceImage": "/decorations/simple-plant.webp",
+        "bytes": 5426
+      },
+      {
+        "slug": "simple-sofa",
+        "file": "simple-sofa.webp",
+        "sourceImage": "/decorations/simple-sofa.webp",
+        "bytes": 3718
+      },
+      {
+        "slug": "simple-table",
+        "file": "simple-table.webp",
+        "sourceImage": "/decorations/simple-table.webp",
+        "bytes": 3438
+      },
+      {
+        "slug": "simple-wardrobe",
+        "file": "simple-wardrobe.webp",
+        "sourceImage": "/decorations/simple-wardrobe.webp",
+        "bytes": 4922
+      },
+      {
+        "slug": "princess-wall",
+        "file": "princess-wall.webp",
+        "sourceImage": "/decorations/princess-wall.webp",
+        "bytes": 4022
+      },
+      {
+        "slug": "princess-floor",
+        "file": "princess-floor.webp",
+        "sourceImage": "/decorations/princess-floor.webp",
+        "bytes": 4670
+      },
+      {
+        "slug": "princess-bed",
+        "file": "princess-bed.webp",
+        "sourceImage": "/decorations/princess-bed.webp",
+        "bytes": 4486
+      },
+      {
+        "slug": "princess-castle-toy",
+        "file": "princess-castle-toy.webp",
+        "sourceImage": "/decorations/princess-castle-toy.webp",
+        "bytes": 5894
+      },
+      {
+        "slug": "princess-chair",
+        "file": "princess-chair.webp",
+        "sourceImage": "/decorations/princess-chair.webp",
+        "bytes": 4124
+      },
+      {
+        "slug": "princess-dresser",
+        "file": "princess-dresser.webp",
+        "sourceImage": "/decorations/princess-dresser.webp",
+        "bytes": 4738
+      },
+      {
+        "slug": "princess-lamp",
+        "file": "princess-lamp.webp",
+        "sourceImage": "/decorations/princess-lamp.webp",
+        "bytes": 3290
+      },
+      {
+        "slug": "princess-nightstand",
+        "file": "princess-nightstand.webp",
+        "sourceImage": "/decorations/princess-nightstand.webp",
+        "bytes": 5040
+      },
+      {
+        "slug": "princess-rocking-horse",
+        "file": "princess-rocking-horse.webp",
+        "sourceImage": "/decorations/princess-horse-rocker.webp",
+        "bytes": 5706
+      },
+      {
+        "slug": "princess-sofa",
+        "file": "princess-sofa.webp",
+        "sourceImage": "/decorations/princess-sofa.webp",
+        "bytes": 4284
+      },
+      {
+        "slug": "princess-table",
+        "file": "princess-table.webp",
+        "sourceImage": "/decorations/princess-table.webp",
+        "bytes": 4322
+      },
+      {
+        "slug": "princess-wardrobe",
+        "file": "princess-wardrobe.webp",
+        "sourceImage": "/decorations/princess-set-wardrobe.webp",
+        "bytes": 3416
+      },
+      {
+        "slug": "classic-wall",
+        "file": "classic-wall.webp",
+        "sourceImage": "/decorations/classic-set-wall.webp",
+        "bytes": 7502
+      },
+      {
+        "slug": "classic-floor",
+        "file": "classic-floor.webp",
+        "sourceImage": "/decorations/classic-set-floor.webp",
+        "bytes": 3686
+      },
+      {
+        "slug": "classic-aquarium",
+        "file": "classic-aquarium.webp",
+        "sourceImage": "/decorations/classic-set-aquarium.webp",
+        "bytes": 4812
+      },
+      {
+        "slug": "classic-bed",
+        "file": "classic-bed.webp",
+        "sourceImage": "/decorations/classic-set-bed.webp",
+        "bytes": 4792
+      },
+      {
+        "slug": "classic-chair",
+        "file": "classic-chair.webp",
+        "sourceImage": "/decorations/classic-set-chair.webp",
+        "bytes": 3756
+      },
+      {
+        "slug": "classic-clock",
+        "file": "classic-clock.webp",
+        "sourceImage": "/decorations/classic-set-clock.webp",
+        "bytes": 4464
+      },
+      {
+        "slug": "classic-jukebox",
+        "file": "classic-jukebox.webp",
+        "sourceImage": "/decorations/classic-set-jukebox.webp",
+        "bytes": 4742
+      },
+      {
+        "slug": "classic-organ",
+        "file": "classic-organ.webp",
+        "sourceImage": "/decorations/classic-set-organ.webp",
+        "bytes": 3860
+      },
+      {
+        "slug": "classic-plant",
+        "file": "classic-plant.webp",
+        "sourceImage": "/decorations/classic-set-plant.webp",
+        "bytes": 5026
+      },
+      {
+        "slug": "classic-sofa",
+        "file": "classic-sofa.webp",
+        "sourceImage": "/decorations/classic-set-sofa.webp",
+        "bytes": 3642
+      },
+      {
+        "slug": "classic-table",
+        "file": "classic-table.webp",
+        "sourceImage": "/decorations/classic-set-table.webp",
+        "bytes": 6462
+      },
+      {
+        "slug": "classic-wardrobe",
+        "file": "classic-wardrobe.webp",
+        "sourceImage": "/decorations/classic-set-wardrobe.webp",
+        "bytes": 4490
+      },
+      {
+        "slug": "design-wall",
+        "file": "design-wall.webp",
+        "sourceImage": "/decorations/casual-set-wall.webp",
+        "bytes": 5454
+      },
+      {
+        "slug": "design-floor",
+        "file": "design-floor.webp",
+        "sourceImage": "/decorations/casual-set-floor.webp",
+        "bytes": 3744
+      },
+      {
+        "slug": "design-bed",
+        "file": "design-bed.webp",
+        "sourceImage": "/decorations/casual-set-bed.webp",
+        "bytes": 4356
+      },
+      {
+        "slug": "design-chair",
+        "file": "design-chair.webp",
+        "sourceImage": "/decorations/casual-set-chair.webp",
+        "bytes": 2388
+      },
+      {
+        "slug": "design-coffee-table",
+        "file": "design-coffee-table.webp",
+        "sourceImage": "/decorations/casual-set-coffee-table.webp",
+        "bytes": 1830
+      },
+      {
+        "slug": "design-lamp",
+        "file": "design-lamp.webp",
+        "sourceImage": "/decorations/casual-set-lamp.webp",
+        "bytes": 1760
+      },
+      {
+        "slug": "design-nightstand",
+        "file": "design-nightstand.webp",
+        "sourceImage": "/decorations/casual-set-nightstand.webp",
+        "bytes": 3050
+      },
+      {
+        "slug": "design-pouf",
+        "file": "design-pouf.webp",
+        "sourceImage": "/decorations/casual-set-cushion-stool.webp",
+        "bytes": 2606
+      },
+      {
+        "slug": "design-sofa",
+        "file": "design-sofa.webp",
+        "sourceImage": "/decorations/casual-set-sofa.webp",
+        "bytes": 3830
+      },
+      {
+        "slug": "design-table",
+        "file": "design-table.webp",
+        "sourceImage": "/decorations/casual-set-table.webp",
+        "bytes": 2660
+      },
+      {
+        "slug": "design-trash-can",
+        "file": "design-trash-can.webp",
+        "sourceImage": "/decorations/casual-set-trash-bin.webp",
+        "bytes": 3632
+      },
+      {
+        "slug": "design-wardrobe",
+        "file": "design-wardrobe.webp",
+        "sourceImage": "/decorations/casual-set-wardrobe.webp",
+        "bytes": 2786
+      },
+      {
+        "slug": "gold-wall",
+        "file": "gold-wall.webp",
+        "sourceImage": "/decorations/gold-set-wall.webp",
+        "bytes": 7080
+      },
+      {
+        "slug": "gold-floor",
+        "file": "gold-floor.webp",
+        "sourceImage": "/decorations/gold-set-floor.webp",
+        "bytes": 6774
+      },
+      {
+        "slug": "gold-aquarium",
+        "file": "gold-aquarium.webp",
+        "sourceImage": "/decorations/gold-set-aquarium.webp",
+        "bytes": 4848
+      },
+      {
+        "slug": "gold-bed",
+        "file": "gold-bed.webp",
+        "sourceImage": "/decorations/gold-set-bed.webp",
+        "bytes": 6262
+      },
+      {
+        "slug": "gold-beta-statue",
+        "file": "gold-beta-statue.webp",
+        "sourceImage": "/decorations/gold-set-beta-statue.webp",
+        "bytes": 4688
+      },
+      {
+        "slug": "gold-chair",
+        "file": "gold-chair.webp",
+        "sourceImage": "/decorations/gold-set-chair.webp",
+        "bytes": 5290
+      },
+      {
+        "slug": "gold-champagne-bucket",
+        "file": "gold-champagne-bucket.webp",
+        "sourceImage": "/decorations/gold-set-champaign-bucket.webp",
+        "bytes": 5102
+      },
+      {
+        "slug": "gold-fish-statue",
+        "file": "gold-fish-statue.webp",
+        "sourceImage": "/decorations/gold-set-fish-statue.webp",
+        "bytes": 5526
+      },
+      {
+        "slug": "gold-lamp",
+        "file": "gold-lamp.webp",
+        "sourceImage": "/decorations/gold-set-lamp.webp",
+        "bytes": 4952
+      },
+      {
+        "slug": "gold-sofa",
+        "file": "gold-sofa.webp",
+        "sourceImage": "/decorations/gold-set-sofa.webp",
+        "bytes": 4532
+      },
+      {
+        "slug": "gold-table",
+        "file": "gold-table.webp",
+        "sourceImage": "/decorations/gold-set-table.webp",
+        "bytes": 7400
+      },
+      {
+        "slug": "gold-tv",
+        "file": "gold-tv.webp",
+        "sourceImage": "/decorations/gold-set-tv.webp",
+        "bytes": 3702
+      },
+      {
+        "slug": "gold-wardrobe",
+        "file": "gold-wardrobe.webp",
+        "sourceImage": "/decorations/gold-set-wardrobe.webp",
+        "bytes": 4960
+      },
+      {
+        "slug": "ice-bed",
+        "file": "ice-bed.webp",
+        "sourceImage": "/decorations/graphics-128x128-9.webp",
+        "bytes": 5478
+      },
+      {
+        "slug": "ice-chair",
+        "file": "ice-chair.webp",
+        "sourceImage": "/decorations/graphics-128x128-66.webp",
+        "bytes": 4482
+      },
+      {
+        "slug": "ice-closet",
+        "file": "ice-closet.webp",
+        "sourceImage": "/decorations/graphics-128x128-67.webp",
+        "bytes": 5508
+      },
+      {
+        "slug": "ice-cream",
+        "file": "ice-cream.webp",
+        "sourceImage": "/decorations/graphics-128x128-72.webp",
+        "bytes": 3178
+      },
+      {
+        "slug": "ice-floor",
+        "file": "ice-floor.webp",
+        "sourceImage": "/decorations/graphics-128x128-83.webp",
+        "bytes": 7042
+      },
+      {
+        "slug": "ice-lamp",
+        "file": "ice-lamp.webp",
+        "sourceImage": "/decorations/graphics-128x128-68.webp",
+        "bytes": 3384
+      },
+      {
+        "slug": "ice-sofa",
+        "file": "ice-sofa.webp",
+        "sourceImage": "/decorations/graphics-128x128-71.webp",
+        "bytes": 5058
+      },
+      {
+        "slug": "ice-table",
+        "file": "ice-table.webp",
+        "sourceImage": "/decorations/graphics-128x128-70.webp",
+        "bytes": 5262
+      },
+      {
+        "slug": "ice-wall",
+        "file": "ice-wall.webp",
+        "sourceImage": "/decorations/graphics-128x128-84.webp",
+        "bytes": 7370
+      },
+      {
+        "slug": "christmas-bed",
+        "file": "christmas-bed.webp",
+        "sourceImage": "/decorations/graphics-128x128-80.webp",
+        "bytes": 5978
+      },
+      {
+        "slug": "christmas-chair",
+        "file": "christmas-chair.webp",
+        "sourceImage": "/decorations/graphics-128x128-76.webp",
+        "bytes": 4052
+      },
+      {
+        "slug": "christmas-closet",
+        "file": "christmas-closet.webp",
+        "sourceImage": "/decorations/graphics-128x128-82.webp",
+        "bytes": 6078
+      },
+      {
+        "slug": "christmas-floor",
+        "file": "christmas-floor.webp",
+        "sourceImage": "/decorations/graphics-128x128-91.webp",
+        "bytes": 7528
+      },
+      {
+        "slug": "christmas-lamp",
+        "file": "christmas-lamp.webp",
+        "sourceImage": "/decorations/graphics-128x128-81.webp",
+        "bytes": 3038
+      },
+      {
+        "slug": "christmas-presents",
+        "file": "christmas-presents.webp",
+        "sourceImage": "/decorations/graphics-128x128-74.webp",
+        "bytes": 6708
+      },
+      {
+        "slug": "christmas-sleigh",
+        "file": "christmas-sleigh.webp",
+        "sourceImage": "/decorations/graphics-128x128-75.webp",
+        "bytes": 5456
+      },
+      {
+        "slug": "christmas-snowman",
+        "file": "christmas-snowman.webp",
+        "sourceImage": "/decorations/graphics-128x128-77.webp",
+        "bytes": 4458
+      },
+      {
+        "slug": "christmas-sofa",
+        "file": "christmas-sofa.webp",
+        "sourceImage": "/decorations/graphics-128x128-78.webp",
+        "bytes": 4210
+      },
+      {
+        "slug": "christmas-table",
+        "file": "christmas-table.webp",
+        "sourceImage": "/decorations/graphics-128x128-79.webp",
+        "bytes": 7122
+      },
+      {
+        "slug": "christmas-tree",
+        "file": "christmas-tree.webp",
+        "sourceImage": "/decorations/graphics-128x128-73.webp",
+        "bytes": 5270
+      },
+      {
+        "slug": "christmas-wall",
+        "file": "christmas-wall.webp",
+        "sourceImage": "/decorations/graphics-128x128-90.webp",
+        "bytes": 6844
+      },
+      {
+        "slug": "spooky-armchair",
+        "file": "spooky-armchair.webp",
+        "sourceImage": "/decorations/graphics-128x128-151.webp",
+        "bytes": 5338
+      },
+      {
+        "slug": "spooky-candle",
+        "file": "spooky-candle.webp",
+        "sourceImage": "/decorations/graphics-128x128-149.webp",
+        "bytes": 3078
+      },
+      {
+        "slug": "spooky-cauldron",
+        "file": "spooky-cauldron.webp",
+        "sourceImage": "/decorations/graphics-128x128-147.webp",
+        "bytes": 4548
+      },
+      {
+        "slug": "spooky-clock",
+        "file": "spooky-clock.webp",
+        "sourceImage": "/decorations/graphics-128x128-148.webp",
+        "bytes": 4396
+      },
+      {
+        "slug": "spooky-coffin",
+        "file": "spooky-coffin.webp",
+        "sourceImage": "/decorations/graphics-128x128-143.webp",
+        "bytes": 3420
+      },
+      {
+        "slug": "spooky-crystal",
+        "file": "spooky-crystal.webp",
+        "sourceImage": "/decorations/graphics-128x128-145.webp",
+        "bytes": 5144
+      },
+      {
+        "slug": "spooky-floor",
+        "file": "spooky-floor.webp",
+        "sourceImage": "/decorations/graphics-128x128-171.webp",
+        "bytes": 7666
+      },
+      {
+        "slug": "spooky-skeleton",
+        "file": "spooky-skeleton.webp",
+        "sourceImage": "/decorations/graphics-128x128-144.webp",
+        "bytes": 5338
+      },
+      {
+        "slug": "spooky-sofa",
+        "file": "spooky-sofa.webp",
+        "sourceImage": "/decorations/graphics-128x128-152.webp",
+        "bytes": 2938
+      },
+      {
+        "slug": "spooky-table",
+        "file": "spooky-table.webp",
+        "sourceImage": "/decorations/graphics-128x128-150.webp",
+        "bytes": 4146
+      },
+      {
+        "slug": "spooky-tombstone",
+        "file": "spooky-tombstone.webp",
+        "sourceImage": "/decorations/graphics-128x128-146.webp",
+        "bytes": 3516
+      },
+      {
+        "slug": "spooky-wall",
+        "file": "spooky-wall.webp",
+        "sourceImage": "/decorations/graphics-128x128-170.webp",
+        "bytes": 2846
+      },
+      {
+        "slug": "pirate-anchor",
+        "file": "pirate-anchor.webp",
+        "sourceImage": "/decorations/graphics-128x128-155.webp",
+        "bytes": 5592
+      },
+      {
+        "slug": "pirate-barrel",
+        "file": "pirate-barrel.webp",
+        "sourceImage": "/decorations/graphics-128x128-153.webp",
+        "bytes": 4156
+      },
+      {
+        "slug": "pirate-bed",
+        "file": "pirate-bed.webp",
+        "sourceImage": "/decorations/graphics-128x128-157.webp",
+        "bytes": 4564
+      },
+      {
+        "slug": "pirate-canon",
+        "file": "pirate-canon.webp",
+        "sourceImage": "/decorations/graphics-128x128-154.webp",
+        "bytes": 3438
+      },
+      {
+        "slug": "pirate-chair",
+        "file": "pirate-chair.webp",
+        "sourceImage": "/decorations/graphics-128x128-159.webp",
+        "bytes": 4048
+      },
+      {
+        "slug": "pirate-compass",
+        "file": "pirate-compass.webp",
+        "sourceImage": "/decorations/graphics-128x128-156.webp",
+        "bytes": 4122
+      },
+      {
+        "slug": "pirate-floor",
+        "file": "pirate-floor.webp",
+        "sourceImage": "/decorations/graphics-128x128-173.webp",
+        "bytes": 3710
+      },
+      {
+        "slug": "pirate-lamp",
+        "file": "pirate-lamp.webp",
+        "sourceImage": "/decorations/graphics-128x128-161.webp",
+        "bytes": 3042
+      },
+      {
+        "slug": "pirate-nightstand",
+        "file": "pirate-nightstand.webp",
+        "sourceImage": "/decorations/graphics-128x128-162.webp",
+        "bytes": 5482
+      },
+      {
+        "slug": "pirate-table",
+        "file": "pirate-table.webp",
+        "sourceImage": "/decorations/graphics-128x128-160.webp",
+        "bytes": 5376
+      },
+      {
+        "slug": "pirate-treasure",
+        "file": "pirate-treasure.webp",
+        "sourceImage": "/decorations/graphics-128x128-158.webp",
+        "bytes": 6082
+      },
+      {
+        "slug": "pirate-wall",
+        "file": "pirate-wall.webp",
+        "sourceImage": "/decorations/graphics-128x128-172.webp",
+        "bytes": 5744
+      },
+      {
+        "slug": "aquarium",
+        "file": "aquarium.webp",
+        "sourceImage": "/decorations/graphics-128x128-93.webp",
+        "bytes": 4298
+      },
+      {
+        "slug": "autumn-plant",
+        "file": "autumn-plant.webp",
+        "sourceImage": "/decorations/graphics-128x128-106.webp",
+        "bytes": 5164
+      },
+      {
+        "slug": "bear-wall",
+        "file": "bear-wall.webp",
+        "sourceImage": "/decorations/graphics-128x128-87.webp",
+        "bytes": 4748
+      },
+      {
+        "slug": "beige-marble-floor",
+        "file": "beige-marble-floor.webp",
+        "sourceImage": "/decorations/graphics-128x128-132.webp",
+        "bytes": 4556
+      },
+      {
+        "slug": "black-fame-painting",
+        "file": "black-fame-painting.webp",
+        "sourceImage": "/decorations/graphics-128x128-121.webp",
+        "bytes": 4374
+      },
+      {
+        "slug": "black-and-white-floor",
+        "file": "black-and-white-floor.webp",
+        "sourceImage": "/decorations/graphics-128x128-134.webp",
+        "bytes": 9052
+      },
+      {
+        "slug": "classic-night-painting",
+        "file": "classic-night-painting.webp",
+        "sourceImage": "/decorations/graphics-128x128-118.webp",
+        "bytes": 4144
+      },
+      {
+        "slug": "dark-casual-floor",
+        "file": "dark-casual-floor.webp",
+        "sourceImage": "/decorations/graphics-128x128-138.webp",
+        "bytes": 3280
+      },
+      {
+        "slug": "dark-marble-floor",
+        "file": "dark-marble-floor.webp",
+        "sourceImage": "/decorations/graphics-128x128-133.webp",
+        "bytes": 4772
+      },
+      {
+        "slug": "dino-wall",
+        "file": "dino-wall.webp",
+        "sourceImage": "/decorations/graphics-128x128-89.webp",
+        "bytes": 5728
+      },
+      {
+        "slug": "energy-machine",
+        "file": "energy-machine.webp",
+        "sourceImage": "/decorations/graphics-128x128-102.webp",
+        "bytes": 6160
+      },
+      {
+        "slug": "exotic-tree",
+        "file": "exotic-tree.webp",
+        "sourceImage": "/decorations/graphics-128x128-103.webp",
+        "bytes": 7580
+      },
+      {
+        "slug": "fishy-painting",
+        "file": "fishy-painting.webp",
+        "sourceImage": "/decorations/graphics-128x128-126.webp",
+        "bytes": 4088
+      },
+      {
+        "slug": "flower-wall",
+        "file": "flower-wall.webp",
+        "sourceImage": "/decorations/graphics-128x128-85.webp",
+        "bytes": 6070
+      },
+      {
+        "slug": "fridge",
+        "file": "fridge.webp",
+        "sourceImage": "/decorations/graphics-128x128-97.webp",
+        "bytes": 2334
+      },
+      {
+        "slug": "guitar",
+        "file": "guitar.webp",
+        "sourceImage": "/decorations/graphics-128x128-99.webp",
+        "bytes": 3280
+      },
+      {
+        "slug": "heart-wall",
+        "file": "heart-wall.webp",
+        "sourceImage": "/decorations/graphics-128x128-88.webp",
+        "bytes": 7408
+      },
+      {
+        "slug": "heater",
+        "file": "heater.webp",
+        "sourceImage": "/decorations/graphics-128x128-98.webp",
+        "bytes": 2816
+      },
+      {
+        "slug": "japanese-painting",
+        "file": "japanese-painting.webp",
+        "sourceImage": "/decorations/graphics-128x128-127.webp",
+        "bytes": 5758
+      },
+      {
+        "slug": "luxurious-floor",
+        "file": "luxurious-floor.webp",
+        "sourceImage": "/decorations/graphics-128x128-137.webp",
+        "bytes": 7984
+      },
+      {
+        "slug": "mosaic-floor",
+        "file": "mosaic-floor.webp",
+        "sourceImage": "/decorations/graphics-128x128-136.webp",
+        "bytes": 9992
+      },
+      {
+        "slug": "orange-tree",
+        "file": "orange-tree.webp",
+        "sourceImage": "/decorations/graphics-128x128-110.webp",
+        "bytes": 4580
+      },
+      {
+        "slug": "pattern-wall",
+        "file": "pattern-wall.webp",
+        "sourceImage": "/decorations/graphics-128x128-86.webp",
+        "bytes": 10386
+      },
+      {
+        "slug": "piano",
+        "file": "piano.webp",
+        "sourceImage": "/decorations/graphics-128x128-94.webp",
+        "bytes": 3714
+      },
+      {
+        "slug": "pink-casual-floor",
+        "file": "pink-casual-floor.webp",
+        "sourceImage": "/decorations/graphics-128x128-139.webp",
+        "bytes": 4084
+      },
+      {
+        "slug": "pink-flower-plant",
+        "file": "pink-flower-plant.webp",
+        "sourceImage": "/decorations/graphics-128x128-116.webp",
+        "bytes": 6766
+      },
+      {
+        "slug": "pink-plant",
+        "file": "pink-plant.webp",
+        "sourceImage": "/decorations/graphics-128x128-109.webp",
+        "bytes": 3752
+      },
+      {
+        "slug": "predator-painting",
+        "file": "predator-painting.webp",
+        "sourceImage": "/decorations/graphics-128x128-129.webp",
+        "bytes": 5108
+      },
+      {
+        "slug": "purple-flowers",
+        "file": "purple-flowers.webp",
+        "sourceImage": "/decorations/graphics-128x128-113.webp",
+        "bytes": 8826
+      },
+      {
+        "slug": "red-green-plant",
+        "file": "red-green-plant.webp",
+        "sourceImage": "/decorations/graphics-128x128-115.webp",
+        "bytes": 3804
+      },
+      {
+        "slug": "red-casual-floor",
+        "file": "red-casual-floor.webp",
+        "sourceImage": "/decorations/graphics-128x128-140.webp",
+        "bytes": 4252
+      },
+      {
+        "slug": "red-plant",
+        "file": "red-plant.webp",
+        "sourceImage": "/decorations/graphics-128x128-108.webp",
+        "bytes": 8150
+      },
+      {
+        "slug": "retro-floor",
+        "file": "retro-floor.webp",
+        "sourceImage": "/decorations/graphics-128x128-135.webp",
+        "bytes": 9220
+      },
+      {
+        "slug": "slot-machine",
+        "file": "slot-machine.webp",
+        "sourceImage": "/decorations/graphics-128x128-92.webp",
+        "bytes": 5048
+      },
+      {
+        "slug": "sports-treadmill",
+        "file": "sports-treadmill.webp",
+        "sourceImage": "/decorations/graphics-128x128-100.webp",
+        "bytes": 3898
+      },
+      {
+        "slug": "sports-weight-bench",
+        "file": "sports-weight-bench.webp",
+        "sourceImage": "/decorations/graphics-128x128-101.webp",
+        "bytes": 5438
+      },
+      {
+        "slug": "supper-painting",
+        "file": "supper-painting.webp",
+        "sourceImage": "/decorations/graphics-128x128-123.webp",
+        "bytes": 3670
+      },
+      {
+        "slug": "venus-flytrap-plant",
+        "file": "venus-flytrap-plant.webp",
+        "sourceImage": "/decorations/graphics-128x128-105.webp",
+        "bytes": 7450
+      },
+      {
+        "slug": "washer",
+        "file": "washer.webp",
+        "sourceImage": "/decorations/graphics-128x128-96.webp",
+        "bytes": 3692
+      },
+      {
+        "slug": "water-gallon",
+        "file": "water-gallon.webp",
+        "sourceImage": "/decorations/graphics-128x128-95.webp",
+        "bytes": 3586
+      },
+      {
+        "slug": "wood-casual-floor",
+        "file": "wood-casual-floor.webp",
+        "sourceImage": "/decorations/graphics-128x128-141.webp",
+        "bytes": 3972
+      },
+      {
+        "slug": "yellow-casual-floor",
+        "file": "yellow-casual-floor.webp",
+        "sourceImage": "/decorations/graphics-128x128-142.webp",
+        "bytes": 4110
+      },
+      {
+        "slug": "balloon-floor",
+        "file": "balloon-floor.webp",
+        "sourceImage": "/decorations/balloon-floor.webp",
+        "bytes": 8996
+      },
+      {
+        "slug": "balloon-chair",
+        "file": "balloon-chair.webp",
+        "sourceImage": "/decorations/balloon-chair.webp",
+        "bytes": 4398
+      },
+      {
+        "slug": "balloon-nightstand",
+        "file": "balloon-nightstand.webp",
+        "sourceImage": "/decorations/balloon-nightstand.webp",
+        "bytes": 5676
+      },
+      {
+        "slug": "balloon-plant",
+        "file": "balloon-plant.webp",
+        "sourceImage": "/decorations/balloon-plant.webp",
+        "bytes": 4750
+      },
+      {
+        "slug": "balloon-table",
+        "file": "balloon-table.webp",
+        "sourceImage": "/decorations/balloon-table.webp",
+        "bytes": 5576
+      },
+      {
+        "slug": "balloon-wall",
+        "file": "balloon-wall.webp",
+        "sourceImage": "/decorations/balloon-wall.webp",
+        "bytes": 6136
+      },
+      {
+        "slug": "balloon-lamp",
+        "file": "balloon-lamp.webp",
+        "sourceImage": "/decorations/balloon-lamp.webp",
+        "bytes": 2344
+      },
+      {
+        "slug": "balloon-wardrobe",
+        "file": "balloon-wardrobe.webp",
+        "sourceImage": "/decorations/balloon-wardrobe.webp",
+        "bytes": 5580
+      },
+      {
+        "slug": "balloon-bed",
+        "file": "balloon-bed.webp",
+        "sourceImage": "/decorations/balloon-bed.webp",
+        "bytes": 5700
+      },
+      {
+        "slug": "balloon-sofa",
+        "file": "balloon-sofa.webp",
+        "sourceImage": "/decorations/balloon-sofa.webp",
+        "bytes": 5860
+      },
+      {
+        "slug": "balloon-clock",
+        "file": "balloon-clock.webp",
+        "sourceImage": "/decorations/balloon-clock.webp",
+        "bytes": 4538
+      },
+      {
+        "slug": "balloon-tv",
+        "file": "balloon-tv.webp",
+        "sourceImage": "/decorations/balloon-tvset.webp",
+        "bytes": 4762
+      },
+      {
+        "slug": "candy-floor",
+        "file": "candy-floor.webp",
+        "sourceImage": "/decorations/candy-floor.webp",
+        "bytes": 7684
+      },
+      {
+        "slug": "candy-chair",
+        "file": "candy-chair.webp",
+        "sourceImage": "/decorations/candy-chair.webp",
+        "bytes": 3810
+      },
+      {
+        "slug": "candy-nightstand",
+        "file": "candy-nightstand.webp",
+        "sourceImage": "/decorations/candy-nightstand.webp",
+        "bytes": 5494
+      },
+      {
+        "slug": "candy-plant",
+        "file": "candy-plant.webp",
+        "sourceImage": "/decorations/candy-plant.webp",
+        "bytes": 5710
+      },
+      {
+        "slug": "candy-stool",
+        "file": "candy-stool.webp",
+        "sourceImage": "/decorations/candy-stool.webp",
+        "bytes": 4458
+      },
+      {
+        "slug": "candy-armchair",
+        "file": "candy-armchair.webp",
+        "sourceImage": "/decorations/candy-single-sofa.webp",
+        "bytes": 4864
+      },
+      {
+        "slug": "candy-sofa",
+        "file": "candy-sofa.webp",
+        "sourceImage": "/decorations/candy-sofa.webp",
+        "bytes": 5912
+      },
+      {
+        "slug": "candy-wall",
+        "file": "candy-wall.webp",
+        "sourceImage": "/decorations/candy-wall.webp",
+        "bytes": 5170
+      },
+      {
+        "slug": "candy-bed",
+        "file": "candy-bed.webp",
+        "sourceImage": "/decorations/candy-bed.webp",
+        "bytes": 6024
+      },
+      {
+        "slug": "candy-wardrobe",
+        "file": "candy-wardrobe.webp",
+        "sourceImage": "/decorations/candy-wardrobe.webp",
+        "bytes": 4426
+      },
+      {
+        "slug": "candy-lamp",
+        "file": "candy-lamp.webp",
+        "sourceImage": "/decorations/candy-lamp.webp",
+        "bytes": 3452
+      },
+      {
+        "slug": "candy-table",
+        "file": "candy-table.webp",
+        "sourceImage": "/decorations/candy-table.webp",
+        "bytes": 3340
+      },
+      {
+        "slug": "gorgeous-chair",
+        "file": "gorgeous-chair.webp",
+        "sourceImage": "/decorations/gorgeous-set-chair.webp",
+        "bytes": 4360
+      },
+      {
+        "slug": "gorgeous-nightstand",
+        "file": "gorgeous-nightstand.webp",
+        "sourceImage": "/decorations/gorgeous-set-nightstand.webp",
+        "bytes": 4190
+      },
+      {
+        "slug": "gorgeous-closet",
+        "file": "gorgeous-closet.webp",
+        "sourceImage": "/decorations/gorgeous-set-closet.webp",
+        "bytes": 5470
+      },
+      {
+        "slug": "gorgeous-sofa",
+        "file": "gorgeous-sofa.webp",
+        "sourceImage": "/decorations/gorgeous-set-sofa.webp",
+        "bytes": 5622
+      },
+      {
+        "slug": "gorgeous-table",
+        "file": "gorgeous-table.webp",
+        "sourceImage": "/decorations/gorgeous-set-table.webp",
+        "bytes": 4180
+      },
+      {
+        "slug": "gorgeous-wall",
+        "file": "gorgeous-wall.webp",
+        "sourceImage": "/decorations/gorgeous-set-wall.webp",
+        "bytes": 7248
+      },
+      {
+        "slug": "gorgeous-floor",
+        "file": "gorgeous-floor.webp",
+        "sourceImage": "/decorations/gorgeous-set-floor.webp",
+        "bytes": 8756
+      },
+      {
+        "slug": "gorgeous-plant",
+        "file": "gorgeous-plant.webp",
+        "sourceImage": "/decorations/gorgeous-set-plant.webp",
+        "bytes": 7874
+      },
+      {
+        "slug": "gorgeous-wardrobe",
+        "file": "gorgeous-wardrobe.webp",
+        "sourceImage": "/decorations/gorgeous-set-wardrobe.webp",
+        "bytes": 6038
+      },
+      {
+        "slug": "gorgeous-lamp",
+        "file": "gorgeous-lamp.webp",
+        "sourceImage": "/decorations/gorgeous-set-lamp.webp",
+        "bytes": 4058
+      },
+      {
+        "slug": "gorgeous-bed",
+        "file": "gorgeous-bed.webp",
+        "sourceImage": "/decorations/gorgeous-set-bed.webp",
+        "bytes": 8220
+      },
+      {
+        "slug": "gorgeous-whisky-table",
+        "file": "gorgeous-whisky-table.webp",
+        "sourceImage": "/decorations/gorgeous-set-whisky-table.webp",
+        "bytes": 3712
+      },
+      {
+        "slug": "soccer-wall",
+        "file": "soccer-wall.webp",
+        "sourceImage": "/decorations/soccer-set-wall.webp",
+        "bytes": 6928
+      },
+      {
+        "slug": "soccer-chair",
+        "file": "soccer-chair.webp",
+        "sourceImage": "/decorations/soccer-set-chair.webp",
+        "bytes": 3826
+      },
+      {
+        "slug": "soccer-clock",
+        "file": "soccer-clock.webp",
+        "sourceImage": "/decorations/soccer-set-clock.webp",
+        "bytes": 2902
+      },
+      {
+        "slug": "soccer-lamp",
+        "file": "soccer-lamp.webp",
+        "sourceImage": "/decorations/soccer-set-lamp.webp",
+        "bytes": 4898
+      },
+      {
+        "slug": "soccer-nightstand",
+        "file": "soccer-nightstand.webp",
+        "sourceImage": "/decorations/soccer-set-nightstand.webp",
+        "bytes": 2678
+      },
+      {
+        "slug": "soccer-stool",
+        "file": "soccer-stool.webp",
+        "sourceImage": "/decorations/soccer-set-stool.webp",
+        "bytes": 3654
+      },
+      {
+        "slug": "soccer-bed",
+        "file": "soccer-bed.webp",
+        "sourceImage": "/decorations/soccer-set-bed.webp",
+        "bytes": 4710
+      },
+      {
+        "slug": "soccer-table",
+        "file": "soccer-table.webp",
+        "sourceImage": "/decorations/soccer-set-table.webp",
+        "bytes": 3180
+      },
+      {
+        "slug": "soccer-single-sofa",
+        "file": "soccer-single-sofa.webp",
+        "sourceImage": "/decorations/soccer-set-single-sofa.webp",
+        "bytes": 3378
+      },
+      {
+        "slug": "soccer-wardrobe",
+        "file": "soccer-wardrobe.webp",
+        "sourceImage": "/decorations/soccer-set-wardrobe.webp",
+        "bytes": 5358
+      },
+      {
+        "slug": "soccer-sofa",
+        "file": "soccer-sofa.webp",
+        "sourceImage": "/decorations/soccer-set-sofa.webp",
+        "bytes": 3346
+      },
+      {
+        "slug": "soccer-floor",
+        "file": "soccer-floor.webp",
+        "sourceImage": "/decorations/soccer-set-floor.webp",
+        "bytes": 4410
+      },
+      {
+        "slug": "space-lamp",
+        "file": "space-lamp.webp",
+        "sourceImage": "/decorations/space-lamp.webp",
+        "bytes": 2524
+      },
+      {
+        "slug": "space-floor",
+        "file": "space-floor.webp",
+        "sourceImage": "/decorations/space-floor.webp",
+        "bytes": 4724
+      },
+      {
+        "slug": "space-clock",
+        "file": "space-clock.webp",
+        "sourceImage": "/decorations/space-clock.webp",
+        "bytes": 3440
+      },
+      {
+        "slug": "space-nightstand",
+        "file": "space-nightstand.webp",
+        "sourceImage": "/decorations/space-nightstand.webp",
+        "bytes": 4090
+      },
+      {
+        "slug": "space-sofa",
+        "file": "space-sofa.webp",
+        "sourceImage": "/decorations/space-sofa.webp",
+        "bytes": 3316
+      },
+      {
+        "slug": "space-wall",
+        "file": "space-wall.webp",
+        "sourceImage": "/decorations/space-wall.webp",
+        "bytes": 6404
+      },
+      {
+        "slug": "space-chair",
+        "file": "space-chair.webp",
+        "sourceImage": "/decorations/space-chair.webp",
+        "bytes": 3624
+      },
+      {
+        "slug": "space-trash-bin",
+        "file": "space-trash-bin.webp",
+        "sourceImage": "/decorations/space-trash-bin.webp",
+        "bytes": 3704
+      },
+      {
+        "slug": "space-tv",
+        "file": "space-tv.webp",
+        "sourceImage": "/decorations/space-tv-set.webp",
+        "bytes": 4936
+      },
+      {
+        "slug": "space-wardrobe",
+        "file": "space-wardrobe.webp",
+        "sourceImage": "/decorations/space-wardrobe.webp",
+        "bytes": 4374
+      },
+      {
+        "slug": "space-bed",
+        "file": "space-bed.webp",
+        "sourceImage": "/decorations/space-bed.webp",
+        "bytes": 4140
+      },
+      {
+        "slug": "space-table",
+        "file": "space-table.webp",
+        "sourceImage": "/decorations/space-table.webp",
+        "bytes": 7820
+      },
+      {
+        "slug": "adam-painting",
+        "file": "adam-painting.webp",
+        "sourceImage": "/decorations/adam-painting.webp",
+        "bytes": 4642
+      },
+      {
+        "slug": "famous-painting",
+        "file": "famous-painting.webp",
+        "sourceImage": "/decorations/famous-painting.webp",
+        "bytes": 3154
+      },
+      {
+        "slug": "screech-painting",
+        "file": "screech-painting.webp",
+        "sourceImage": "/decorations/screech-painting.webp",
+        "bytes": 4460
+      },
+      {
+        "slug": "star-painting",
+        "file": "star-painting.webp",
+        "sourceImage": "/decorations/star-painting.webp",
+        "bytes": 6154
+      },
+      {
+        "slug": "birth-painting",
+        "file": "birth-painting.webp",
+        "sourceImage": "/decorations/birth-painting.webp",
+        "bytes": 5360
+      },
+      {
+        "slug": "perl-painting",
+        "file": "perl-painting.webp",
+        "sourceImage": "/decorations/perl-painting.webp",
+        "bytes": 3696
+      },
+      {
+        "slug": "trout-painting",
+        "file": "trout-painting.webp",
+        "sourceImage": "/decorations/trout-painting.webp",
+        "bytes": 3778
+      },
+      {
+        "slug": "fishao-wall",
+        "file": "fishao-wall.webp",
+        "sourceImage": "/decorations/fishao-wall.webp",
+        "bytes": 10142
+      },
+      {
+        "slug": "breeder-rex-statue",
+        "file": "breeder-rex-statue.webp",
+        "sourceImage": "/decorations/breeder-rex-statue.webp",
+        "bytes": 4238
+      },
+      {
+        "slug": "herb-statue",
+        "file": "herb-statue.webp",
+        "sourceImage": "/decorations/herb-statue.webp",
+        "bytes": 4392
+      },
+      {
+        "slug": "jamie-statue",
+        "file": "jamie-statue.webp",
+        "sourceImage": "/decorations/jamie-statue.webp",
+        "bytes": 4106
+      },
+      {
+        "slug": "captain-carp-statue",
+        "file": "captain-carp-statue.webp",
+        "sourceImage": "/decorations/captain-carp-statue.webp",
+        "bytes": 4254
+      },
+      {
+        "slug": "uncle-sam-statue",
+        "file": "uncle-sam-statue.webp",
+        "sourceImage": "/decorations/uncle-sam-statue.webp",
+        "bytes": 4224
+      },
+      {
+        "slug": "totem-pole",
+        "file": "totem-pole.webp",
+        "sourceImage": "/decorations/totem-pole.webp",
+        "bytes": 4710
+      },
+      {
+        "slug": "egg-table",
+        "file": "egg-table.webp",
+        "sourceImage": "/decorations/egg-table.webp",
+        "bytes": 2614
+      },
+      {
+        "slug": "pineapple-tree",
+        "file": "pineapple-tree.webp",
+        "sourceImage": "/decorations/pineapple-tree.webp",
+        "bytes": 5266
+      },
+      {
+        "slug": "red-flowers",
+        "file": "red-flowers.webp",
+        "sourceImage": "/decorations/red-flowers.webp",
+        "bytes": 4250
+      },
+      {
+        "slug": "cactus",
+        "file": "cactus.webp",
+        "sourceImage": "/decorations/cactus.webp",
+        "bytes": 4432
+      },
+      {
+        "slug": "pink-tulips",
+        "file": "pink-tulips.webp",
+        "sourceImage": "/decorations/pink-tulips.webp",
+        "bytes": 4994
+      },
+      {
+        "slug": "anthurium-plant",
+        "file": "anthurium-plant.webp",
+        "sourceImage": "/decorations/anthurium-plant.webp",
+        "bytes": 6334
+      },
+      {
+        "slug": "green-fern-plant",
+        "file": "green-fern-plant.webp",
+        "sourceImage": "/decorations/green-fern-plant.webp",
+        "bytes": 7152
+      }
+    ]
+  },
+  "setIcons": [
+    {
+      "set": "Simple Set",
+      "file": "set-simple-set.webp",
+      "sourceUrl": "https://www.fishaofunwiki.com/decorations-set-badges/simple-set.webp",
+      "bytes": 4556
+    },
+    {
+      "set": "Princess Set",
+      "file": "set-princess-set.webp",
+      "sourceUrl": "https://www.fishaofunwiki.com/decorations-set-badges/princess-set.webp",
+      "bytes": 6680
+    },
+    {
+      "set": "Classic Set",
+      "file": "set-classic-set.webp",
+      "sourceUrl": "https://www.fishaofunwiki.com/decorations-set-badges/classic-set.webp",
+      "bytes": 5698
+    },
+    {
+      "set": "Design Set",
+      "file": "set-design-set.webp",
+      "sourceUrl": "https://www.fishaofunwiki.com/decorations-set-badges/design-set.webp",
+      "bytes": 4432
+    },
+    {
+      "set": "Gold Set",
+      "file": "set-gold-set.webp",
+      "sourceUrl": "https://www.fishaofunwiki.com/decorations-set-badges/gold-set.webp",
+      "bytes": 7496
+    },
+    {
+      "set": "Ice Set",
+      "file": "set-ice-set.webp",
+      "sourceUrl": "https://www.fishaofunwiki.com/decorations-set-badges/ice-set.webp",
+      "bytes": 7238
+    },
+    {
+      "set": "Christmas Set",
+      "file": "set-christmas-set.webp",
+      "sourceUrl": "https://www.fishaofunwiki.com/decorations-set-badges/christmas-set.webp",
+      "bytes": 4612
+    },
+    {
+      "set": "Spooky Set",
+      "file": "set-spooky-set.webp",
+      "sourceUrl": "https://www.fishaofunwiki.com/decorations-set-badges/spooky-set.webp",
+      "bytes": 6780
+    },
+    {
+      "set": "Pirate Set",
+      "file": "set-pirate-set.webp",
+      "sourceUrl": "https://www.fishaofunwiki.com/decorations-set-badges/pirate-set.webp",
+      "bytes": 6158
+    },
+    {
+      "set": "Other",
+      "file": "set-other.webp",
+      "sourceUrl": "https://www.fishaofunwiki.com/decorations-logo.webp",
+      "bytes": 5544
+    },
+    {
+      "set": "Balloon Set",
+      "file": "set-balloon-set.webp",
+      "sourceUrl": "https://www.fishaofunwiki.com/decorations/balloon-tvset.webp",
+      "bytes": 4762
+    },
+    {
+      "set": "Candy Set",
+      "file": "set-candy-set.webp",
+      "sourceUrl": "https://www.fishaofunwiki.com/decorations/candy-table.webp",
+      "bytes": 3340
+    },
+    {
+      "set": "Gorgeous Set",
+      "file": "set-gorgeous-set.webp",
+      "sourceUrl": "https://www.fishaofunwiki.com/decorations/gorgeous-set-whisky-table.webp",
+      "bytes": 3712
+    },
+    {
+      "set": "Soccer Set",
+      "file": "set-soccer-set.webp",
+      "sourceUrl": "https://www.fishaofunwiki.com/decorations/soccer-set-floor.webp",
+      "bytes": 4410
+    },
+    {
+      "set": "Space Set",
+      "file": "set-space-set.webp",
+      "sourceUrl": "https://www.fishaofunwiki.com/decorations/space-table.webp",
+      "bytes": 7820
+    }
+  ],
+  "catalogHash": "sha256:dedf97f1075cace2cd84d046a64280000f23e359c5f1317d6957e572e58a857f",
+  "catalogPath": "data\\catalog.json",
+  "assetsDir": "public\\assets\\decorations",
+  "finishedAt": "2026-11-14T14:48:26.049Z"
+}

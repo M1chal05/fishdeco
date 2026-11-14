@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="cs" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Fishdeco — klubová evidence dekorací</title>
+  <script src="/theme.js"></script>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <!-- Login gate -->
+  <div id="login-view" class="login" hidden>
+    <div class="login__card">
+      <div class="login__head">
+        <p class="wordmark">Fishdeco</p>
+        <button class="btn btn--ghost theme-toggle" type="button" aria-label="Přepnout na světlý vzhled" title="Přepnout na světlý vzhled"></button>
+      </div>
+      <p id="login-notice" class="login__notice" role="status" hidden></p>
+      <form id="login-form" class="login__form" autocomplete="on">
+        <label class="field" id="clubpass-field">
+          <span>Heslo</span>
+          <input class="input" id="login-clubpass" name="club-password" type="password"
+                 autocomplete="off" required>
+          <span class="field__hint">Používá se při každém přihlášení přes Discord.</span>
+        </label>
+        <button id="club-verify" class="btn btn--primary" type="submit" disabled>Ověřit heslo</button>
+        <p id="auth-config-hint" class="field__hint" role="status">Přihlášení přes Discord zatím není nastavené.</p>
+        <p id="login-error" class="note note--error" role="alert" hidden></p>
+      </form>
+      <div id="discord-auth" class="discord-auth" hidden>
+        <p id="discord-auth-hint" class="field__hint" role="status">Heslo ověřeno.</p>
+        <button id="discord-login" class="btn btn--primary discord-auth__button" type="button" disabled>Přihlásit přes Discord</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- App shell -->
+  <div id="app" class="app" hidden>
+    <aside class="rail">
+      <div class="rail-head">
+        <p class="wordmark">Fishdeco</p>
+        <button id="logout" class="btn btn--ghost" type="button">Odhlásit</button>
+      </div>
+      <p id="rail-user" class="rail-user"></p>
+      <section id="discord-account" class="discord-account" aria-label="Discord účet" hidden>
+        <p id="discord-account-label" class="discord-account__label"></p>
+      </section>
+      <nav class="rail-nav" aria-label="Kolekce">
+        <p class="rail-label">Kolekce</p>
+        <label class="field rail-search">
+          <span class="visually-hidden">Hledat sadu</span>
+          <input id="col-search" class="input" type="search" autocomplete="off" placeholder="Hledat sadu…">
+        </label>
+        <p id="col-total" class="rail-total"></p>
+        <ul id="collection-list" class="col-list"></ul>
+        <p id="col-empty" class="rail-note" hidden></p>
+      </nav>
+      <div class="rail-foot">
+        <button class="btn btn--ghost theme-toggle" type="button" aria-label="Přepnout na světlý vzhled" title="Přepnout na světlý vzhled"></button>
+        <p id="sync-status" class="status" role="status">Načítám…</p>
+        <button id="refresh" class="btn btn--ghost" type="button">Obnovit</button>
+      </div>
+    </aside>
+
+    <main id="main" class="main">
+      <header class="main__head">
+        <h1 id="col-title">Fishdeco</h1>
+        <p id="col-desc" class="lede"></p>
+        <p id="col-stats" class="stats"></p>
+      </header>
+
+      <p id="app-empty" class="empty" hidden></p>
+
+      <section id="summary-sec" class="sec" aria-labelledby="summary-h">
+        <h2 id="summary-h">Přehled sady</h2>
+        <div id="primary-box" class="primary">
+          <p class="primary__line">
+            <span class="primary__label">Primární sběratel:</span>
+            <span id="primary-name" class="primary__name"></span><span id="primary-count" class="primary__count"></span>
+          </p>
+          <button id="primary-btn" class="btn btn--ghost" type="button" hidden></button>
+        </div>
+        <div id="set-summary" class="set-summary">
+          <p class="set-summary__row set-summary__row--done">
+            <span class="set-summary__label">Hotovo:</span>
+            <span id="done-list" class="set-summary__names"></span>
+          </p>
+          <p class="set-summary__row set-summary__row--leaders">
+            <span class="set-summary__label">Nejdál ve sbírce:</span>
+            <span id="leaders-list" class="set-summary__names"></span>
+          </p>
+        </div>
+      </section>
+
+      <section id="items-sec" class="sec" aria-labelledby="items-h">
+        <h2 id="items-h">Předměty</h2>
+        <div id="view-banner" class="view-banner" hidden>
+          <p id="view-banner-text" class="view-banner__text"></p>
+          <button id="view-self" class="btn btn--primary" type="button">Moje sbírka</button>
+        </div>
+        <div id="filters" class="filters">
+          <label class="field filters__q">
+            <span>Hledat v sadě</span>
+            <input id="item-search" class="input" type="search" autocomplete="off" placeholder="Název dekorace…">
+          </label>
+          <label class="field">
+            <span>Typ</span>
+            <select id="filter-type" class="input"></select>
+          </label>
+          <label class="field">
+            <span>Vzácnost</span>
+            <select id="filter-rarity" class="input"></select>
+          </label>
+          <label class="field">
+            <span>Vlastnictví</span>
+            <select id="filter-own" class="input">
+              <option value="">Všechny</option>
+              <option value="missing">Chybí mi</option>
+              <option value="owned">Vlastním</option>
+            </select>
+          </label>
+          <button id="filter-clear" class="btn btn--ghost filters__clear" type="button" disabled>Zrušit filtry</button>
+        </div>
+        <p id="items-count" class="items-count" role="status"></p>
+        <ul id="items" class="items"></ul>
+        <p id="items-empty" class="empty" hidden></p>
+      </section>
+
+      <section id="club-sec" class="sec" aria-labelledby="club-h">
+        <h2 id="club-h">Klub</h2>
+        <ul id="people" class="people"></ul>
+        <p id="club-empty" class="empty" hidden></p>
+        <p id="legacy-note" class="hint" hidden></p>
+      </section>
+
+      <footer class="colophon">
+        <p>Fishdeco — společná evidence klubu · každý člen upravuje jen svou sbírku</p>
+        <p id="source-note" class="colophon__src" hidden></p>
+      </footer>
+    </main>
+  </div>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <noscript><p class="noscript">Fishdeco potřebuje zapnutý JavaScript.</p></noscript>
+  <script src="/app.js" defer></script>
+</body>
+</html>

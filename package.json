@@ -1,0 +1,27 @@
+{
+  "name": "fishdeco",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Klubová webová aplikace pro evidenci sběrekaných dekorací",
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "dev": "node --watch server.mjs",
+    "start": "node server.mjs",
+    "test": "node --test",
+    "import": "node scripts/import-wiki.mjs",
+    "cf:build": "node scripts/build-cloudflare.mjs",
+    "cf:dev": "wrangler dev",
+    "cf:deploy": "wrangler deploy",
+    "cf:check": "wrangler deploy --dry-run --outdir .wrangler/dry-run",
+    "cf:db:local": "wrangler d1 migrations apply fishdeco --local",
+    "cf:db:remote": "wrangler d1 migrations apply fishdeco --remote"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "miniflare": "5.20261113.0-beta",
+    "wrangler": "4.162.0"
+  }
+}

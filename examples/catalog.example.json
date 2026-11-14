@@ -1,0 +1,32 @@
+{
+  "_poznamka": "UKÁZKOVÝ soubor – aplikace ho NEnačítá. Skutečný katalog je data/catalog.json. Id kolekcí a předmětů si zvolte jednou a už je neměňte; id předmětů musí být jedinečné v celém souboru.",
+  "collections": [
+    {
+      "id": "keramicke-dekorace",
+      "name": "Keramické dekorace",
+      "description": "Dekorace z pálené hlíny do akvária",
+      "items": [
+        {
+          "id": "keramika-amfora-mala",
+          "name": "Malá amfora",
+          "description": "Výška 10 cm, terakota"
+        },
+        {
+          "id": "keramika-dutina-05",
+          "name": "Úkrytová dutina"
+        }
+      ]
+    },
+    {
+      "id": "umele-rostliny",
+      "name": "Umělé rostliny",
+      "items": [
+        {
+          "id": "rostlina-anubias-plast",
+          "name": "Anubias (plast)",
+          "description": "Výška 15 cm"
+        }
+      ]
+    }
+  ]
+}

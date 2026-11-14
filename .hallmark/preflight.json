@@ -1,0 +1,15 @@
+{
+  "scanned": "2026-11-14",
+  "project": "fishdeco — klubová evidence sbírek dekorací (CZ)",
+  "signals": {
+    "designMd": false,
+    "fontStack": null,
+    "palette": null,
+    "motion": null,
+    "spacing": null,
+    "framework": "vanilla"
+  },
+  "notes": "Empty project — no package.json, no index.html, no CSS, no tokens at scan time. Full Hallmark stack introduced. Brief forbids external resources (no Google Fonts, no imagery, no network): Coral's Geist is declared with installed-local + system sans fallback instead. Client rendered via textContent/DOM only (stored-XSS safe).",
+  "preserve": [],
+  "introduce": ["tokens.css", "macrostructure", "microinteraction discipline", "slop-test gates"]
+}
