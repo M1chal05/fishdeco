@@ -318,6 +318,49 @@ test('vlastní sběratel jde upravit i starou cestou, zděděný a cizí ne', as
   assert.deepEqual((await ownViaLegacy.json()).collector.ownedItemIds, []);
 });
 
+test('badge kolekce: sdílené vlastnictví položky napříč kolekcemi', async (t) => {
+  const shared = {
+    collections: [
+      {
+        id: 'dekorace',
+        name: 'Dekorace',
+        items: [
+          { id: 'item-a', name: 'Amfora' },
+          { id: 'item-b', name: 'Dutina' },
+        ],
+      },
+      {
+        id: 'odznaky',
+        name: 'Odznaky',
+        badge: true,
+        items: [
+          { id: 'item-a', name: 'Amfora' },
+          { id: 'item-b', name: 'Dutina' },
+        ],
+      },
+    ],
+  };
+  const { base } = await start(t, { catalog: shared });
+  const { cookie } = await registerUser(base, 'Pepa');
+  const put = (cid, iid, owned) =>
+    jsonPut(base, `/api/me/collections/${cid}/items/${iid}`, { owned }, { cookie });
+  const state = async () => (await fetch(`${base}/api/state`, { headers: { cookie } })).json();
+  const ownedOf = (body, cid) => body.collectors.find((c) => c.collectionId === cid)?.ownedItemIds;
+
+  // Zaškrtnutí v jedné kolekci se projeví i v druhé.
+  assert.equal((await put('dekorace', 'item-a', true)).status, 200);
+  assert.equal((await put('odznaky', 'item-b', false)).status, 200); // založí sběratele odznaků
+  let body = await state();
+  assert.deepEqual(ownedOf(body, 'dekorace'), ['item-a']);
+  assert.deepEqual(ownedOf(body, 'odznaky'), ['item-a']);
+
+  // Odškrtnutí v jedné kolekci zruší vlastnictví i v druhé.
+  assert.equal((await put('odznaky', 'item-a', false)).status, 200);
+  body = await state();
+  assert.deepEqual(ownedOf(body, 'dekorace'), []);
+  assert.deepEqual(ownedOf(body, 'odznaky'), []);
+});
+
 test('POST /api/collectors je odebráno (410)', async (t) => {
   const { base } = await start(t);
   const { cookie } = await registerUser(base, 'Pepa');
@@ -587,6 +630,29 @@ test('neplatný katalog způsobí jasnou chybu', async (t) => {
       },
     }),
     /Duplicitní id předmětu "x"/
+  );
+  // Opakované id je povoleno jen pro naprosto shodné položky v badge kolekci.
+  await assert.rejects(
+    () => start(t, {
+      catalog: {
+        collections: [
+          { id: 'a', name: 'A', items: [{ id: 'x', name: 'X' }] },
+          { id: 'b', name: 'B', badge: true, items: [{ id: 'x', name: 'Jiný X' }] },
+        ],
+      },
+    }),
+    /Duplicitní id předmětu "x"/
+  );
+  await assert.rejects(
+    () => start(t, {
+      catalog: {
+        collections: [
+          { id: 'a', name: 'A', items: [{ id: 'x', name: 'X' }] },
+          { id: 'b', name: 'B', badge: 'ano', items: [] },
+        ],
+      },
+    }),
+    /badge musí být true nebo false/
   );
 });
 

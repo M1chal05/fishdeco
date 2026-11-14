@@ -42,9 +42,9 @@ const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const SOURCE_IMAGE_RE = /^\/decorations\/[A-Za-z0-9._-]+\.[a-z0-9]+$/;
 
 // Typové sběrací odznaky z wiki (assets/collections-*.js): Plants a Paintings.
-// Id položky v katalogu musí být jedinečné, proto se tyto položky vyčleňují
-// jen z kolekce "Other" – rostliny a obrazy z tematických sad zůstávají
-// ve svých sadách.
+// Obsahují všechny položky daného typu napříč sadami; z "Other" se tyto
+// položky odstraní, z tematických sad zůstávají i ve svých sadách (id položky
+// se v katalogu smí opakovat jen mezi sadou a badge kolekcí).
 const BADGE_COLLECTIONS = [
   { id: 'plants', name: 'Plants', itemType: 'Plant', icon: '/decorations-set-badges/plant-set.webp' },
   { id: 'paintings', name: 'Paintings', itemType: 'Painting', icon: '/decorations-set-badges/painting-set.webp' },
@@ -397,29 +397,29 @@ function buildCatalog(items, meta, icons, names) {
       }),
     };
   });
-  // Odznaky: typové položky z "Other" se přesunou do samostatných kolekcí.
+  // Odznaky: typové položky se seskupí do badge kolekcí. Z "Other" se tyto
+  // položky odstraní, z tematických sad zůstávají i tam – id položky se pak
+  // v katalogu vyskytuje v sadě i v odznaku (sdílené vlastnictví).
+  const badgeItems = BADGE_COLLECTIONS.map((b) => ({
+    b,
+    items: collections.flatMap((c) => c.items.filter((it) => it.type === b.itemType)),
+  })).filter(({ items }) => items.length > 0);
   const otherIdx = collections.findIndex((c) => c.id === 'other');
   if (otherIdx !== -1) {
     const other = collections[otherIdx];
-    const buckets = BADGE_COLLECTIONS.map(() => []);
-    const rest = [];
-    for (const it of other.items) {
-      const bi = BADGE_COLLECTIONS.findIndex((b) => b.itemType === it.type);
-      (bi === -1 ? rest : buckets[bi]).push(it);
-    }
-    other.items = rest;
-    const badges = BADGE_COLLECTIONS
-      .map((b, i) => ({ b, items: buckets[i] }))
-      .filter(({ items: list }) => list.length > 0)
-      .map(({ b, items: list }) => ({
-        id: b.id,
-        name: b.name,
-        ...(names.collections[b.id] ? { nameCs: names.collections[b.id] } : {}),
-        ...(icons.has(b.name) ? { image: `/assets/decorations/${icons.get(b.name).slug}.webp` } : {}),
-        sourceUrl: `${WIKI_ORIGIN}${CATEGORY_PATH}`,
-        items: list,
-      }));
-    collections.splice(otherIdx + 1, 0, ...badges);
+    other.items = other.items.filter((it) => !BADGE_COLLECTIONS.some((b) => b.itemType === it.type));
+  }
+  if (badgeItems.length > 0) {
+    const badges = badgeItems.map(({ b, items }) => ({
+      id: b.id,
+      name: b.name,
+      badge: true,
+      ...(names.collections[b.id] ? { nameCs: names.collections[b.id] } : {}),
+      ...(icons.has(b.name) ? { image: `/assets/decorations/${icons.get(b.name).slug}.webp` } : {}),
+      sourceUrl: `${WIKI_ORIGIN}${CATEGORY_PATH}`,
+      items,
+    }));
+    collections.splice(otherIdx === -1 ? collections.length : otherIdx + 1, 0, ...badges);
   }
   return { meta, collections };
 }

@@ -3,7 +3,7 @@
   "generator": "scripts/import-wiki.mjs",
   "wikiOrigin": "https://www.fishaofunwiki.com",
   "categoryUrl": "https://www.fishaofunwiki.com/category/decorations",
-  "fetchedAt": "2026-11-14T15:44:34.480Z",
+  "fetchedAt": "2026-11-14T15:52:04.437Z",
   "steps": {
     "mainModule": "https://www.fishaofunwiki.com/assets/index-PCabpCXC.js",
     "decorationsChunk": "https://www.fishaofunwiki.com/assets/decorations-Bi4jdZSp.js",
@@ -1581,8 +1581,8 @@
       "bytes": 6126
     }
   ],
-  "catalogHash": "sha256:586787dcda396f5a70356d4d0bae74bdffd6b53644c384b5c4bbb1faca1f5d1a",
+  "catalogHash": "sha256:dbbb503753e674fb4af62cb74dd839b17b3c17c930413d167d0996f345473a2a",
   "catalogPath": "data\\catalog.json",
   "assetsDir": "public\\assets\\decorations",
-  "finishedAt": "2026-11-14T15:44:39.386Z"
+  "finishedAt": "2026-11-14T15:52:09.277Z"
 }

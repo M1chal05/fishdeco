@@ -71,13 +71,21 @@ function readDiscordConfig(env) {
 }
 function makeCatalog(catalog) {
   const collections = catalog.collections || [];
-  const itemToCollection = new Map();
+  // Id položky se smí opakovat (badge kolekce) – členství je mapa id → sady.
+  const itemToCollections = new Map();
   const collectionIds = new Set();
   for (const collection of collections) {
     collectionIds.add(collection.id);
-    for (const item of collection.items || []) itemToCollection.set(item.id, collection.id);
+    for (const item of collection.items || []) {
+      let memberships = itemToCollections.get(item.id);
+      if (!memberships) {
+        memberships = new Set();
+        itemToCollections.set(item.id, memberships);
+      }
+      memberships.add(collection.id);
+    }
   }
-  return { collections, itemToCollection, collectionIds, meta: catalog.meta };
+  return { collections, itemToCollections, collectionIds, meta: catalog.meta };
 }
 async function readBody(request) {
   const type = request.headers.get('Content-Type') || '';
@@ -148,10 +156,24 @@ export function createWorker({ catalog = defaultCatalog, fetcher = globalThis.fe
         LEFT JOIN owned_items o ON o.collector_id=c.id ORDER BY c.created_at,c.id,o.item_id`)).all()
     ]);
     const byId = new Map();
+    // Sdílené vlastnictví: odškrtnutí u kteréhokoli sběratele uživatele se
+    // počítá pro všechny kolekce, kde se položka vyskytuje.
+    const ownedByOwner = new Map();
     for (const row of rows.results || []) {
       if (!byId.has(row.id)) byId.set(row.id, { id: row.id, name: row.user_id ? (row.user_name || row.name) : row.name,
         collectionId: row.collection_id, ownedItemIds: [], userId: row.user_id ?? null });
-      if (row.item_id && data.itemToCollection.get(row.item_id) === row.collection_id) byId.get(row.id).ownedItemIds.push(row.item_id);
+      if (row.item_id) {
+        const key = row.user_id ?? `collector:${row.id}`;
+        let owned = ownedByOwner.get(key);
+        if (!owned) { owned = new Set(); ownedByOwner.set(key, owned); }
+        owned.add(row.item_id);
+      }
+    }
+    for (const collector of byId.values()) {
+      const key = collector.userId ?? `collector:${collector.id}`;
+      collector.ownedItemIds = [...(ownedByOwner.get(key) || [])]
+        .filter((id) => data.itemToCollections.get(id)?.has(collector.collectionId))
+        .sort();
     }
     const result = { collections: data.collections, collectors: [...byId.values()], users: users.results || [],
       currentUser: { id: user.id, name: user.name },
@@ -284,9 +306,9 @@ export function createWorker({ catalog = defaultCatalog, fetcher = globalThis.fe
     if (collector && collector.user_id !== user.id) error(403, 'Tohoto sběratele může upravovat jen jeho vlastník.');
     const targetCollection = legacyCollectorId ? collector.collection_id : collectionId;
     if (!data.collectionIds.has(targetCollection)) error(404, 'Kolekce nebyla nalezena.');
-    const itemCollection = data.itemToCollection.get(itemId);
-    if (!itemCollection) error(404, 'Předmět nebyl nalezen.');
-    if (itemCollection !== targetCollection) error(400, 'Předmět nepatří do této kolekce.');
+    const itemCollections = data.itemToCollections.get(itemId);
+    if (!itemCollections) error(404, 'Předmět nebyl nalezen.');
+    if (!itemCollections.has(targetCollection)) error(400, 'Předmět nepatří do této kolekce.');
     let selected = collector;
     if (!selected) {
       const id = crypto.randomUUID();
@@ -299,12 +321,14 @@ export function createWorker({ catalog = defaultCatalog, fetcher = globalThis.fe
     }
     const statements = [body.owned
       ? await d1(env, 'INSERT OR IGNORE INTO owned_items(collector_id,item_id) VALUES(?,?)', selected.id, itemId)
-      : await d1(env, 'DELETE FROM owned_items WHERE collector_id=? AND item_id=?', selected.id, itemId),
+      : await d1(env, 'DELETE FROM owned_items WHERE item_id=? AND collector_id IN (SELECT id FROM collectors WHERE user_id=?)', itemId, user.id),
     await d1(env, "UPDATE app_meta SET value=value+1 WHERE key='revision'")];
     await env.DB.batch(statements);
-    const owned = await (await d1(env, 'SELECT item_id FROM owned_items WHERE collector_id=? ORDER BY item_id', selected.id)).all();
+    const owned = await (await d1(env, `SELECT oi.item_id FROM owned_items oi
+      JOIN collectors oc ON oc.id=oi.collector_id WHERE oc.user_id=? OR oc.id=?
+      GROUP BY oi.item_id ORDER BY MIN(oi.rowid)`, user.id, selected.id)).all();
     return { collector: { id: selected.id, name: user.name, collectionId: targetCollection,
-      ownedItemIds: (owned.results || []).map((row) => row.item_id).filter((id) => data.itemToCollection.get(id) === targetCollection), userId: user.id } };
+      ownedItemIds: (owned.results || []).map((row) => row.item_id).filter((id) => data.itemToCollections.get(id)?.has(targetCollection)), userId: user.id } };
   }
   async function primaryMutation(request, env, user, collectionId) {
     const body = await readBody(request);

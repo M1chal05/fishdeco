@@ -119,7 +119,11 @@ export function loadCatalog(catalogPath) {
   }
 
   const collectionIds = new Set();
-  const itemToCollection = new Map();
+  // Id položky smí být v katalogu opakované – ale jen tehdy, když opakovaný
+  // výskyt je v badge kolekci ("badge": true) a položka je naprosto shodná.
+  // Vlastnictví je pak sdílené napříč všemi kolekcemi, kde se položka vyskytuje.
+  const itemToCollections = new Map();
+  const itemCanonical = new Map();
   const collections = data.collections.map((c, i) => {
     const where = `collections[${i}]`;
     if (!c || typeof c !== 'object' || Array.isArray(c)) {
@@ -130,6 +134,9 @@ export function loadCatalog(catalogPath) {
     }
     if (c.nameCs !== undefined && (!isNonEmptyString(c.nameCs) || c.nameCs.length > 160)) {
       throw new CatalogError(`${where}.nameCs musí být neprázdný řetězec do 160 znaků.`);
+    }
+    if (c.badge !== undefined && typeof c.badge !== 'boolean') {
+      throw new CatalogError(`${where}.badge musí být true nebo false.`);
     }
     if (c.image !== undefined && (typeof c.image !== 'string' || !ITEM_IMAGE_RE.test(c.image))) {
       throw new CatalogError(`${where}.image musí být lokální cesta /assets/decorations/<soubor>.`);
@@ -182,16 +189,25 @@ export function loadCatalog(catalogPath) {
           throw new CatalogError(`${iwhere}.${f} musí být konečné číslo >= 0.`);
         }
       }
-      if (itemToCollection.has(it.id)) {
-        throw new CatalogError(`Duplicitní id předmětu "${it.id}". Id předmětů musí být jedinečná v celém katalogu.`);
-      }
-      itemToCollection.set(it.id, c.id);
       const item = { id: it.id, name: it.name };
       for (const f of [
         'description', 'nameCs', 'image', 'sourceUrl', 'set', 'type', 'rarity', 'availability',
         'season', 'source', 'level', 'price', 'width', 'height', 'acquisitionDetail',
       ]) {
         if (it[f] !== undefined) item[f] = it[f];
+      }
+      const memberships = itemToCollections.get(it.id);
+      if (memberships) {
+        if (c.badge !== true || itemCanonical.get(it.id) !== JSON.stringify(item)) {
+          throw new CatalogError(
+            `Duplicitní id předmětu "${it.id}". Id předmětů musí být jedinečná v celém katalogu `
+            + '– výjimka jen pro naprosto shodné položky v badge kolekcích.'
+          );
+        }
+        memberships.add(c.id);
+      } else {
+        itemToCollections.set(it.id, new Set([c.id]));
+        itemCanonical.set(it.id, JSON.stringify(item));
       }
       return item;
     });
@@ -200,10 +216,11 @@ export function loadCatalog(catalogPath) {
     if (c.image !== undefined) collection.image = c.image;
     if (c.description !== undefined) collection.description = c.description;
     if (c.sourceUrl !== undefined) collection.sourceUrl = c.sourceUrl;
+    if (c.badge !== undefined) collection.badge = c.badge;
     collection.items = items;
     return collection;
   });
-  return { collections, itemToCollection, meta };
+  return { collections, itemToCollections, meta };
 }
 
 // Formát uloženého tajemství: "s1:<sůl hex>:<scrypt hash hex>" – sůl je vždy
@@ -413,9 +430,20 @@ export function createApp(options = {}) {
        LEFT JOIN users u ON u.id = c.user_id
        ORDER BY c.created_at, c.rowid`
     ),
-    ownedIds: db.prepare('SELECT item_id FROM owned_items WHERE collector_id = ? ORDER BY rowid'),
+    // Sdílené vlastnictví: položka patřící do více kolekcí (např. rostlina
+    // v sadě i v odznaku) se počítá jako vlastněná všude, kde ji uživatel má
+    // zaškrtnutou u kteréhokoli svých sběratelů.
+    ownedIds: db.prepare(
+      `SELECT oi.item_id FROM owned_items oi
+       JOIN collectors oc ON oc.id = oi.collector_id
+       WHERE oc.user_id = ? OR oc.id = ?
+       GROUP BY oi.item_id ORDER BY MIN(oi.rowid)`
+    ),
     addOwned: db.prepare('INSERT OR IGNORE INTO owned_items (collector_id, item_id) VALUES (?, ?)'),
-    removeOwned: db.prepare('DELETE FROM owned_items WHERE collector_id = ? AND item_id = ?'),
+    removeOwnedForUser: db.prepare(
+      `DELETE FROM owned_items WHERE item_id = ?
+       AND collector_id IN (SELECT id FROM collectors WHERE user_id = ?)`
+    ),
     getPrimary: db.prepare('SELECT collection_id, user_id FROM primary_assignments WHERE collection_id = ?'),
     insertPrimary: db.prepare('INSERT INTO primary_assignments (collection_id, user_id) VALUES (?, ?)'),
     deletePrimary: db.prepare('DELETE FROM primary_assignments WHERE collection_id = ?'),
@@ -542,10 +570,10 @@ export function createApp(options = {}) {
   }
 
   function collectorJson(row, catalog) {
-    const ownedItemIds = q.ownedIds.all(row.id)
+    const ownedItemIds = q.ownedIds.all(row.user_id ?? null, row.id)
       .map((r) => r.item_id)
       // Položky smazané z katalogu ve stavu neukazujeme, ale v DB zůstávají.
-      .filter((id) => catalog.itemToCollection.get(id) === row.collection_id);
+      .filter((id) => catalog.itemToCollections.get(id)?.has(row.collection_id));
     // Jméno vlastněného sběratele se odvozuje od účtu; u zděděných záznamů
     // (user_id IS NULL) zůstává původně uložené jméno.
     const name = row.user_id
@@ -698,11 +726,11 @@ export function createApp(options = {}) {
       if (!catalog.collections.some((c) => c.id === collectionId)) {
         throw new HttpError(404, 'Kolekce nebyla nalezena.');
       }
-      const owningCollection = catalog.itemToCollection.get(itemId);
-      if (!owningCollection) {
+      const itemCollections = catalog.itemToCollections.get(itemId);
+      if (!itemCollections) {
         throw new HttpError(404, 'Předmět nebyl nalezen.');
       }
-      if (owningCollection !== collectionId) {
+      if (!itemCollections.has(collectionId)) {
         throw new HttpError(400, 'Předmět nepatří do této kolekce.');
       }
       let collector = q.findUserCollector.get(me.id, collectionId);
@@ -723,7 +751,7 @@ export function createApp(options = {}) {
       if (body.owned) {
         q.addOwned.run(collector.id, itemId);
       } else {
-        q.removeOwned.run(collector.id, itemId);
+        q.removeOwnedForUser.run(itemId, me.id);
       }
       return { status: 200, data: { collector: collectorJson(collector, catalog) } };
     }
@@ -784,17 +812,17 @@ export function createApp(options = {}) {
         throw new HttpError(403, 'Tohoto sběratele může upravovat jen jeho vlastník.');
       }
       const catalog = loadCatalog(catalogPath);
-      const owningCollection = catalog.itemToCollection.get(itemId);
-      if (!owningCollection) {
+      const itemCollections = catalog.itemToCollections.get(itemId);
+      if (!itemCollections) {
         throw new HttpError(404, 'Předmět nebyl nalezen.');
       }
-      if (owningCollection !== collector.collection_id) {
+      if (!itemCollections.has(collector.collection_id)) {
         throw new HttpError(400, 'Předmět nepatří do kolekce tohoto sběratele.');
       }
       if (body.owned) {
         q.addOwned.run(collectorId, itemId);
       } else {
-        q.removeOwned.run(collectorId, itemId);
+        q.removeOwnedForUser.run(itemId, me.id);
       }
       return { status: 200, data: { collector: collectorJson(collector, catalog) } };
     }
