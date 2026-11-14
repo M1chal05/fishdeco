@@ -203,37 +203,51 @@ export function createWorker({ catalog = defaultCatalog, fetcher = globalThis.fe
     const clear = oauthCookie(request, '', 0);
     const fail = (code) => redirect(`/?discord_error=${code}`, [clear]);
     if (!cfg.enabled) return fail('disabled');
-    if (new URL(request.url).origin !== new URL(cfg.redirectUri).origin) return fail('failed');
+    if (new URL(request.url).origin !== new URL(cfg.redirectUri).origin) return fail('callback_mismatch');
     const state = url.searchParams.get('state');
     if (!state || state.length > 256) return fail('expired');
     const stateHash = await hash(state);
     const binding = cookieValue(request, 'discord_oauth');
-    const records = await env.DB.batch([
-      await d1(env, 'DELETE FROM oauth_states WHERE state_hash=? AND expires_at>? RETURNING binding_hash,verifier,expires_at', stateHash, now()),
-      await d1(env, 'DELETE FROM oauth_states WHERE expires_at<=?', now())
-    ]);
+    let records;
+    try {
+      records = await env.DB.batch([
+        await d1(env, 'DELETE FROM oauth_states WHERE state_hash=? AND expires_at>? RETURNING binding_hash,verifier,expires_at', stateHash, now()),
+        await d1(env, 'DELETE FROM oauth_states WHERE expires_at<=?', now())
+      ]);
+    } catch { return fail('storage_failed'); }
     const record = records[0]?.results?.[0];
     if (!record || record.expires_at <= now()) return fail('expired');
-    if (!binding || !await equalText(await hash(binding), record.binding_hash)) return fail('failed');
+    if (!binding || !await equalText(await hash(binding), record.binding_hash)) return fail('browser_mismatch');
     if (url.searchParams.has('error')) return fail('cancelled');
-    if (url.searchParams.has('iss') && url.searchParams.get('iss') !== 'https://discord.com') return fail('failed');
+    if (url.searchParams.has('iss') && url.searchParams.get('iss') !== 'https://discord.com') return fail('issuer_mismatch');
     const code = url.searchParams.get('code');
     if (!code || code.length > 2048) return fail('failed');
+    let failureStage = 'token_exchange_failed';
     try {
       const form = new URLSearchParams({ grant_type: 'authorization_code', code, redirect_uri: cfg.redirectUri,
         client_id: cfg.clientId, client_secret: cfg.clientSecret, code_verifier: record.verifier });
       const tokenResponse = await fetcher(TOKEN_URL, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: form, redirect: 'error', signal: AbortSignal.timeout(10000) });
-      if (!tokenResponse.ok) return fail('failed');
+      if (!tokenResponse.ok) {
+        // Only allowlisted OAuth error identifiers may leave the server.
+        // Never return provider descriptions, request bodies, codes, or tokens.
+        let providerError;
+        try { providerError = (await tokenResponse.json()).error; } catch { /* Non-JSON provider error */ }
+        if (providerError === 'invalid_client') return fail('invalid_client');
+        if (providerError === 'invalid_grant') return fail('invalid_grant');
+        return fail('token_exchange_failed');
+      }
       const tokenData = await tokenResponse.json();
-      if (typeof tokenData.access_token !== 'string' || !tokenData.access_token || tokenData.access_token.length > 4096) return fail('failed');
+      if (typeof tokenData.access_token !== 'string' || !tokenData.access_token || tokenData.access_token.length > 4096) return fail('token_exchange_failed');
+      failureStage = 'profile_failed';
       const profileResponse = await fetcher(PROFILE_URL, { headers: { Authorization: `Bearer ${tokenData.access_token}` }, redirect: 'error', signal: AbortSignal.timeout(10000) });
-      if (!profileResponse.ok) return fail('failed');
+      if (!profileResponse.ok) return fail('profile_failed');
       const profile = await profileResponse.json();
       if (typeof profile.id !== 'string' || !/^\d{5,30}$/.test(profile.id) || profile.bot === true
         || typeof profile.username !== 'string' || !profile.username.trim() || profile.username.length > 80
-        || (profile.global_name != null && (typeof profile.global_name !== 'string' || profile.global_name.length > 80))) return fail('failed');
+        || (profile.global_name != null && (typeof profile.global_name !== 'string' || profile.global_name.length > 80))) return fail('profile_failed');
       const username = profile.username.trim();
       const displayName = (typeof profile.global_name === 'string' && profile.global_name.trim() ? profile.global_name : username).trim();
+      failureStage = 'storage_failed';
       let user = await (await d1(env, `SELECT u.id,u.name FROM discord_accounts d JOIN users u ON u.id=d.user_id WHERE d.discord_id=?`, profile.id)).first();
       const stmts = [];
       if (user) {
@@ -256,7 +270,7 @@ export function createWorker({ catalog = defaultCatalog, fetcher = globalThis.fe
       stmts.push(await d1(env, "UPDATE app_meta SET value=value+1 WHERE key='revision'"));
       await env.DB.batch(stmts);
       return redirect('/?discord=linked', [clear, sessionCookie(request, token, Math.floor(SESSION_TTL / 1000))]);
-    } catch { return fail('failed'); }
+    } catch { return fail(failureStage); }
   }
   async function mutateItem(request, env, user, collectionId, itemId, legacyCollectorId = null) {
     const body = await readBody(request);

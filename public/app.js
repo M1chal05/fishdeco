@@ -1493,6 +1493,14 @@ const discordErrorMessages = {
   expired: "Přihlášení přes Discord vypršelo. Zkus to znovu.",
   invite_required: "Heslo není správné nebo chybí. Zkontroluj ho a zkus to znovu.",
   already_linked: "Tento Discord účet už je propojený s jiným účtem.",
+  invalid_client: "Discord odmítl přihlašovací údaje aplikace. Správce musí zkontrolovat Discord Client Secret.",
+  invalid_grant: "Discord odmítl přihlašovací kód. Začni přihlášení znovu; pokud se chyba opakuje, správce musí zkontrolovat návratovou adresu.",
+  token_exchange_failed: "Nepodařilo se dokončit ověření u Discordu. Zkus se přihlásit znovu. (Ověření aplikace)",
+  profile_failed: "Discord neposkytl platný profil. Zkus se přihlásit znovu. (Načtení profilu)",
+  storage_failed: "Přihlášení se nepodařilo uložit. Správce musí zkontrolovat databázi aplikace.",
+  browser_mismatch: "Prohlížeč nepotvrdil začátek přihlášení. Povol cookies pro tento web a začni přihlášení znovu ve stejné kartě.",
+  callback_mismatch: "Návratová adresa Discordu neodpovídá tomuto webu. Správce musí opravit nastavení přihlášení.",
+  issuer_mismatch: "Návrat z Discordu neprošel kontrolou poskytovatele. Začni přihlášení znovu.",
   failed: "Přihlášení přes Discord se nepodařilo. Zkus to znovu.",
 };
 

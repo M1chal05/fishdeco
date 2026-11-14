@@ -125,6 +125,34 @@ test('Cloudflare: Discord survives isolates, stores only hashed session, expiry 
   } finally { f.DB.sqlite.close(); }
 });
 
+test('Cloudflare: OAuth reports safe failure stages without leaking provider payloads', async () => {
+  for (const [providerError, expected] of [['invalid_client', 'invalid_client'], ['invalid_grant', 'invalid_grant'], ['private-provider-error', 'token_exchange_failed']]) {
+    const f = fixture();
+    try {
+      const flow = await f.begin();
+      const worker = createWorker({ catalog, fetcher: async () => Response.json({ error: providerError, error_description: 'sensitive-provider-content' }, { status: 401 }) });
+      const response = await f.send(worker, `/api/auth/discord/callback?code=test-code&state=${flow.url.searchParams.get('state')}`, { cookie: flow.cookie });
+      assert.equal(response.headers.get('Location'), `/?discord_error=${expected}`);
+      assert.ok(!JSON.stringify([...response.headers]).includes('sensitive-provider-content'));
+    } finally { f.DB.sqlite.close(); }
+  }
+  const f = fixture();
+  try {
+    const flow = await f.begin();
+    const batch = f.DB.batch;
+    let batches = 0;
+    f.DB.batch = async (statements) => {
+      if (++batches === 2) throw new Error('sensitive database details');
+      return batch(statements);
+    };
+    const worker = createWorker({ catalog, fetcher: async (url) => Response.json(url.includes('/token')
+      ? { access_token: 'test-token' } : { id: '111111111111111111', username: 'alice', global_name: 'Alice' }) });
+    const response = await f.send(worker, `/api/auth/discord/callback?code=test-code&state=${flow.url.searchParams.get('state')}`, { cookie: flow.cookie });
+    assert.equal(response.headers.get('Location'), '/?discord_error=storage_failed');
+    assert.equal(f.DB.sqlite.prepare('SELECT count(*) AS count FROM users').get().count, 0);
+  } finally { f.DB.sqlite.close(); }
+});
+
 test('Cloudflare: unchanged ETag avoids full member scan; item edits invalidate and isolate users', async () => {
   const f = fixture();
   try {
